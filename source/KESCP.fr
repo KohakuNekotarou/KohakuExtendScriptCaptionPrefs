@@ -1,0 +1,238 @@
+//========================================================================================
+//  
+//  $File: $
+//  
+//  Owner: 
+//  
+//  $Author: $
+//  
+//  $DateTime: $
+//  
+//  $Revision: $
+//  
+//  $Change: $
+//  
+//  Copyright 1997-2012 Adobe Systems Incorporated. All rights reserved.
+//  
+//  NOTICE:  Adobe permits you to use, modify, and distribute this file in accordance 
+//  with the terms of the Adobe license agreement accompanying it.  If you have received
+//  this file from a source other than Adobe, then your use, modification, or 
+//  distribution of it requires the prior written permission of Adobe.
+//  
+//========================================================================================
+
+#include "VCPlugInHeaders.h"
+
+// General includes:
+#include "MenuDef.fh"
+#include "ActionDef.fh"
+#include "ActionDefs.h"
+#include "AdobeMenuPositions.h"
+#include "LocaleIndex.h"
+#include "PMLocaleIds.h"
+#include "StringTable.fh"
+#include "ObjectModelTypes.fh"
+#include "ShuksanID.h"
+#include "ActionID.h"
+#include "CommandID.h"
+#include "WorkspaceID.h"
+#include "WidgetID.h"
+#include "BuildNumber.h"
+#include "PlugInModel_UIAttributes.h"
+
+#include "ScriptInfoTypes.fh"
+#include "AppFrameworkID.h"
+
+// Project includes:
+#include "KESCPID.h"
+#include "GenericID.h"
+#include "ShuksanID.h"
+#include "TextID.h"
+
+#include "KESCPScriptingDefs.h"
+
+
+#ifdef __ODFRC__
+
+/*  
+ * Plugin version definition.
+ */
+resource PluginVersion (kSDKDefPluginVersionResourceID)
+{
+	kTargetVersion,
+	kKESCPPluginID,
+	kSDKDefPlugInMajorVersionNumber, kSDKDefPlugInMinorVersionNumber,
+	kSDKDefHostMajorVersionNumber, kSDKDefHostMinorVersionNumber,
+	kKESCPCurrentMajorFormatNumber, kKESCPCurrentMinorFormatNumber,
+	{ kInDesignProduct },
+	{ kWildFS },
+	kModelPlugIn,
+	kKESCPVersion
+};
+
+/*  
+ * The ExtraPluginInfo resource adds extra information to the Missing Plug-in dialog
+ * that is popped when a document containing this plug-in's data is opened when
+ * this plug-in is not present. These strings are not translatable strings
+ * since they must be available when the plug-in isn't around. They get stored
+ * in any document that this plug-in contributes data to.
+ */
+resource ExtraPluginInfo(1)
+{
+	kKESCPCompanyValue,			// Company name
+	kKESCPMissingPluginURLValue,	// URL 
+	kKESCPMissingPluginAlertValue,	// Missing plug-in alert text
+};
+
+/* 
+ * Boss class definitions.
+ */
+resource ClassDescriptionTable(kSDKDefClassDescriptionTableResourceID)
+{{{
+	// ---------------------------------------------------------------------------------------
+	// kKESCPPrefsScriptProviderBoss
+	Class
+	{
+		kKESCPPrefsScriptProviderBoss,
+		kBaseScriptProviderBoss,
+		{
+			IID_ISCRIPTPROVIDER, kKESCPPrefsScriptProviderImpl,
+		}
+	},
+}}};
+
+/*  
+ * Implementation definition.
+ */
+resource FactoryList (kSDKDefFactoryListResourceID)
+{
+	kImplementationIDSpace,
+	{
+		#include "KESCPFactoryList.h"
+	}
+};
+
+
+/*  
+ * Locale Indicies.
+ * The LocaleIndex should have indicies that point at your
+ * localizations for each language system that you are localized for.
+ */
+
+/*  
+ * String LocaleIndex.
+ */
+resource LocaleIndex ( kSDKDefStringsResourceID)
+{
+	kStringTableRsrcType,
+	{
+		kWildFS, k_enUS, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_enGB, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_deDE, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_frFR, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_esES, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_ptBR, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_svSE, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_daDK, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_nlNL, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_itIT, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_nbNO, kSDKDefStringsResourceID + index_enUS
+		kWildFS, k_fiFI, kSDKDefStringsResourceID + index_enUS
+		kInDesignJapaneseFS, k_jaJP, kSDKDefStringsResourceID + index_jaJP
+	}
+};
+
+resource LocaleIndex (kSDKDefStringsNoTransResourceID)
+{
+	kStringTableRsrcType,
+	{
+		kWildFS, k_Wild, kSDKDefStringsNoTransResourceID + index_enUS
+	}
+};
+
+// Strings not being localized
+resource StringTable (kSDKDefStringsNoTransResourceID + index_enUS)
+{
+	k_enUS,									// Locale Id
+	kEuropeanMacToWinEncodingConverter,		// Character encoding converter
+	{
+	}
+};
+/*
+
+/*  Scripting definition
+	In InDesign/InCopy, scripting resources are defined via ODFRez statements for cross-platform compatibility.
+*/
+resource VersionedScriptElementInfo(2)
+{
+	// Contexts
+	{
+        kFiredrakeScriptVersion, kCoreScriptManagerBoss, kInDesignAllLanguagesFS, k_Wild,
+		kFiredrakeScriptVersion, kCoreScriptManagerBoss, kInCopyAllLanguagesFS, k_Wild,
+		
+	}
+	
+	// Elements
+	{
+		// ---------------------------------------------------------------------------------------
+		Provider
+        {
+            kKESCPPrefsScriptProviderBoss,
+            {
+				// parent to the represented object
+                Parent { kApplicationObjectScriptElement },
+
+				// the represented object
+				RepresentObject{ kKESCPCaptionPreferenceObjectScriptElement },
+
+				// the property on the parent object that will refer to the represented object
+				ParentProperty{ kKESCPCaptionPreferenceObjectPropertyScriptElement, kReadWrite },	
+
+				// Property
+				Property{ kKESCPFrameOffsetPropertyScriptElement, kReadWrite },
+            }
+        }
+
+		// Object: caption preference
+		Object
+		{
+			kKESCPCaptionPreferenceObjectScriptElement,	// object's script element ID
+			c_KESCPCaptionPreference, // script PropID
+			"k e s c p caption preference", // name
+			"KESCP caption preference.", // description
+			kCPrefs_CLSID, // Windows CLSID
+			NoCollectionInfo, // CollectionElementType (scriptID, name, descr, CLSID)
+			kPreferencesObjectScriptElement,
+			kPreferencesSuiteScriptElement,
+		}
+
+		// Property (of the parent): caption preferences
+		Property
+		{
+			kKESCPCaptionPreferenceObjectPropertyScriptElement,
+			p_KESCPCaptionPreferences,
+			"k e s c p caption preferences", // name
+			"KESCP caption preferences.", // description
+			ObjectType( kKESCPCaptionPreferenceObjectScriptElement ),
+			{}
+			kNoAttributeClass,
+		}
+
+		Property
+        {
+            kKESCPFrameOffsetPropertyScriptElement,
+            p_KESCPFrameOffset,
+            "k e s c p frame offset",
+            "KESCP frame offset.",
+            RealType,
+            {}
+            kNoAttributeClass,
+        }
+	}
+};
+
+	
+#endif // __ODFRC__
+
+#include "KESCP_enUS.fr"
+#include "KESCP_jaJP.fr"
