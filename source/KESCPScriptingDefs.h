@@ -47,6 +47,8 @@ enum KESCPScriptProperties
 {
 	p_KESCPCaptionPreferences = 'KCPs',
 	p_KESCPFrameOffset = 'KFOf',
+	p_KESCPCaptionParagraphStyleUID = 'KPSU',
+	p_KESCPCaptionLayerName = 'KCLN',
 };
 
 

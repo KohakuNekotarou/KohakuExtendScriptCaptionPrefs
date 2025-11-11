@@ -190,6 +190,12 @@ resource VersionedScriptElementInfo(2)
 
 				// Property
 				Property{ kKESCPFrameOffsetPropertyScriptElement, kReadWrite },
+
+				// Property
+				Property{ kKESCPCaptionParagraphStyleUIDPropertyScriptElement, kReadWrite },
+
+				// Property
+				Property{ kKESCPCaptionLayerNamePropertyScriptElement, kReadWrite },
             }
         }
 
@@ -218,6 +224,7 @@ resource VersionedScriptElementInfo(2)
 			kNoAttributeClass,
 		}
 
+		// Frame offset
 		Property
         {
             kKESCPFrameOffsetPropertyScriptElement,
@@ -225,6 +232,30 @@ resource VersionedScriptElementInfo(2)
             "k e s c p frame offset",
             "KESCP frame offset.",
             RealType,
+            {}
+            kNoAttributeClass,
+        }
+
+		// Caption paragraph style UID
+		Property
+        {
+            kKESCPCaptionParagraphStyleUIDPropertyScriptElement,
+            p_KESCPCaptionParagraphStyleUID,
+            "k e s c p caption paragraph style i d",
+            "KESCP caption paragraph style UID.",
+            Int32Type,
+            {}
+            kNoAttributeClass,
+        }
+
+		// Caption layer name
+		Property
+        {
+            kKESCPCaptionLayerNamePropertyScriptElement,
+            p_KESCPCaptionLayerName,
+            "k e s c p caption layer name",
+            "KESCP caption layer name.",
+            StringType,
             {}
             kNoAttributeClass,
         }

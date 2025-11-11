@@ -93,6 +93,8 @@ DECLARE_PMID(kActionIDSpace, kKESCPAboutActionID, kKESCPPrefix + 0)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionPreferenceObjectScriptElement, kKESCPPrefix + 0)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionPreferenceObjectPropertyScriptElement, kKESCPPrefix + 1)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPFrameOffsetPropertyScriptElement, kKESCPPrefix + 2)
+DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionParagraphStyleUIDPropertyScriptElement, kKESCPPrefix + 3)
+DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionLayerNamePropertyScriptElement, kKESCPPrefix + 4)
 
 // "About Plug-ins" sub-menu:
 #define kKESCPAboutMenuKey			kKESCPStringPrefix "kKESCPAboutMenuKey"

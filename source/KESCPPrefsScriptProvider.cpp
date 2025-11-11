@@ -34,6 +34,7 @@
 #include "IWorkspace.h"
 
 // General includes:
+#include "CAlert.h"
 #include "PreferenceUtils.h" // for QueryPreferences
 #include "PrefsScriptProvider.h"
 #include "Utils.h"
@@ -53,6 +54,10 @@ public:
 
 private:
 	virtual ErrorCode GetSetFrameOffset(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
+
+	virtual ErrorCode GetSetCaptionParagraphStyleUID(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
+
+	virtual ErrorCode GetSetCaptionLayerName(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
 };
 
 CREATE_PMINTERFACE(KESCPPrefsScriptProvider, kKESCPPrefsScriptProviderImpl)
@@ -70,6 +75,14 @@ ErrorCode KESCPPrefsScriptProvider::AccessProperty(ScriptID scriptID_property, I
 	{
 	case KESCPScriptProperties::p_KESCPFrameOffset:
 		status = this->GetSetFrameOffset(scriptID_property, iScriptRequestData, iScript_parent);
+		break;
+
+	case KESCPScriptProperties::p_KESCPCaptionParagraphStyleUID:
+		status = this->GetSetCaptionParagraphStyleUID(scriptID_property, iScriptRequestData, iScript_parent);
+		break;
+
+	case KESCPScriptProperties::p_KESCPCaptionLayerName:
+		status = this->GetSetCaptionLayerName(scriptID_property, iScriptRequestData, iScript_parent);
 		break;
 
 	default:
@@ -148,6 +161,113 @@ ErrorCode KESCPPrefsScriptProvider::GetSetFrameOffset
 			iLinkCaptionPrefs->SetFrameOffset(pMReal_point);
 		}
 
+		status = kSuccess;
+
+	} while (false); // only do once
+
+	return status;
+}
+
+ErrorCode KESCPPrefsScriptProvider::GetSetCaptionParagraphStyleUID
+(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+{
+	ErrorCode status = kFailure;
+
+	do
+	{
+		ScriptData scriptData;
+		UID uID;
+
+		// ---------------------------------------------------------------------------------------
+		// Query ILinkCaptionPrefs
+		IActiveContext* iActiveContext = ::GetExecutionContextSession()->GetActiveContext();
+		if (iActiveContext == nil) break;
+
+		InterfacePtr<ILinkCaptionPrefs> iLinkCaptionPrefs(
+			(ILinkCaptionPrefs*)::QueryPreferences(IID_ILINKCAPTIONPREFS, iActiveContext)
+		);
+		if (iLinkCaptionPrefs == nil) break;
+
+		// ---------------------------------------------------------------------------------------
+		// Processing request data
+		if (iScriptRequestData->IsPropertyGet()) // Get
+		{
+			uID = iLinkCaptionPrefs->GetCaptionParagraphStyleUID();
+
+			// ---------------------------------------------------------------------------------------
+			// Append return data
+			scriptData.SetInt32(uID.Get());
+
+			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, scriptData);
+		}
+		else if (iScriptRequestData->IsPropertyPut()) // Set
+		{
+			// ---------------------------------------------------------------------------------------
+			// Extract request data
+			status = iScriptRequestData->ExtractRequestData(scriptID_property.Get(), scriptData);
+			if (status != kSuccess) break;
+
+			int32 int32_uID;
+			status = scriptData.GetInt32(&int32_uID);
+			if (status != kSuccess) break;
+			uID = int32_uID;
+
+			// ---------------------------------------------------------------------------------------
+			// Set.
+			iLinkCaptionPrefs->SetCaptionParagraphStyleUID(uID);
+		}
+		status = kSuccess;
+
+	} while (false); // only do once
+
+	return status;
+}
+
+ErrorCode KESCPPrefsScriptProvider::GetSetCaptionLayerName
+(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+{
+	ErrorCode status = kFailure;
+
+	do
+	{
+		ScriptData scriptData;
+		PMString pMString_layerName;
+		// ---------------------------------------------------------------------------------------
+		// Query ILinkCaptionPrefs
+		IActiveContext* iActiveContext = ::GetExecutionContextSession()->GetActiveContext();
+		if (iActiveContext == nil) break;
+
+		InterfacePtr<ILinkCaptionPrefs> iLinkCaptionPrefs(
+			(ILinkCaptionPrefs*)::QueryPreferences(IID_ILINKCAPTIONPREFS, iActiveContext)
+		);
+		if (iLinkCaptionPrefs == nil) break;
+
+		// ---------------------------------------------------------------------------------------
+		// Processing request data
+		if (iScriptRequestData->IsPropertyGet()) // Get
+		{
+			pMString_layerName = iLinkCaptionPrefs->GetCaptionLayerName();
+
+			// ---------------------------------------------------------------------------------------
+			// Append return data
+			scriptData.SetPMString(pMString_layerName);
+
+			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, scriptData);
+		}
+		else if (iScriptRequestData->IsPropertyPut()) // Set
+		{
+			// ---------------------------------------------------------------------------------------
+			// Extract request data
+			status = iScriptRequestData->ExtractRequestData(scriptID_property.Get(), scriptData);
+			if (status != kSuccess) break;
+
+			status = scriptData.GetPMString(pMString_layerName);
+			if (status != kSuccess) break;
+
+			// ---------------------------------------------------------------------------------------
+			// Set.
+			iLinkCaptionPrefs->SetCaptionLayerName(pMString_layerName);
+		}
 		status = kSuccess;
 
 	} while (false); // only do once
