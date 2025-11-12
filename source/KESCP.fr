@@ -196,6 +196,12 @@ resource VersionedScriptElementInfo(2)
 
 				// Property
 				Property{ kKESCPCaptionLayerNamePropertyScriptElement, kReadWrite },
+
+				// Property
+				Property{ kKESCPGroupCaptionWithImagePropertyScriptElement, kReadWrite },
+
+				// Property
+				Property{ kKESCPCaptionAlignmentPropertyScriptElement, kReadWrite },
             }
         }
 
@@ -255,6 +261,30 @@ resource VersionedScriptElementInfo(2)
             p_KESCPCaptionLayerName,
             "k e s c p caption layer name",
             "KESCP caption layer name.",
+            StringType,
+            {}
+            kNoAttributeClass,
+        }
+
+		// Caption layer name
+		Property
+        {
+            kKESCPGroupCaptionWithImagePropertyScriptElement,
+            p_KESCPGroupCaptionWithImage,
+            "k e s c p group caption with image",
+            "KESCP group caption with image.",
+            BoolType,
+            {}
+            kNoAttributeClass,
+        }
+
+		// Caption alignment
+		Property
+        {
+            kKESCPCaptionAlignmentPropertyScriptElement,
+            p_KESCPCaptionAlignment
+            "k e s c p caption alignment",
+            "KESCP caption alignment.",
             StringType,
             {}
             kNoAttributeClass,

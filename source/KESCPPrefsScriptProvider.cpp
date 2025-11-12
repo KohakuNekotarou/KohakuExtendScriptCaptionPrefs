@@ -58,6 +58,10 @@ private:
 	virtual ErrorCode GetSetCaptionParagraphStyleUID(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
 
 	virtual ErrorCode GetSetCaptionLayerName(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
+
+	virtual ErrorCode GetSetGroupCaptionWithImage(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
+
+	virtual ErrorCode GetSetCaptionAlignment(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
 };
 
 CREATE_PMINTERFACE(KESCPPrefsScriptProvider, kKESCPPrefsScriptProviderImpl)
@@ -83,6 +87,14 @@ ErrorCode KESCPPrefsScriptProvider::AccessProperty(ScriptID scriptID_property, I
 
 	case KESCPScriptProperties::p_KESCPCaptionLayerName:
 		status = this->GetSetCaptionLayerName(scriptID_property, iScriptRequestData, iScript_parent);
+		break;
+
+	case KESCPScriptProperties::p_KESCPGroupCaptionWithImage:
+		status = this->GetSetGroupCaptionWithImage(scriptID_property, iScriptRequestData, iScript_parent);
+		break;
+
+	case KESCPScriptProperties::p_KESCPCaptionAlignment:
+		status = this->GetSetCaptionAlignment(scriptID_property, iScriptRequestData, iScript_parent);
 		break;
 
 	default:
@@ -267,6 +279,154 @@ ErrorCode KESCPPrefsScriptProvider::GetSetCaptionLayerName
 			// ---------------------------------------------------------------------------------------
 			// Set.
 			iLinkCaptionPrefs->SetCaptionLayerName(pMString_layerName);
+		}
+		status = kSuccess;
+
+	} while (false); // only do once
+
+	return status;
+}
+
+ErrorCode KESCPPrefsScriptProvider::GetSetGroupCaptionWithImage
+(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+{
+	ErrorCode status = kFailure;
+
+	do
+	{
+		ScriptData scriptData;
+		bool16 bool16_groupCaptionFlg;
+		// ---------------------------------------------------------------------------------------
+		// Query ILinkCaptionPrefs
+		IActiveContext* iActiveContext = ::GetExecutionContextSession()->GetActiveContext();
+		if (iActiveContext == nil) break;
+
+		InterfacePtr<ILinkCaptionPrefs> iLinkCaptionPrefs(
+			(ILinkCaptionPrefs*)::QueryPreferences(IID_ILINKCAPTIONPREFS, iActiveContext)
+		);
+		if (iLinkCaptionPrefs == nil) break;
+
+		// ---------------------------------------------------------------------------------------
+		// Processing request data
+		if (iScriptRequestData->IsPropertyGet()) // Get
+		{
+			bool16_groupCaptionFlg = iLinkCaptionPrefs->GetGroupCaptionWithImage();
+
+			// ---------------------------------------------------------------------------------------
+			// Append return data
+			scriptData.SetBoolean(bool16_groupCaptionFlg);
+
+			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, scriptData);
+		}
+		else if (iScriptRequestData->IsPropertyPut()) // Set
+		{
+			// ---------------------------------------------------------------------------------------
+			// Extract request data
+			status = iScriptRequestData->ExtractRequestData(scriptID_property.Get(), scriptData);
+			if (status != kSuccess) break;
+
+			status = scriptData.GetBoolean(&bool16_groupCaptionFlg);
+			if (status != kSuccess) break;
+
+			// ---------------------------------------------------------------------------------------
+			// Set.
+			iLinkCaptionPrefs->SetGroupCaptionWithImage(bool16_groupCaptionFlg);
+		}
+		status = kSuccess;
+
+	} while (false); // only do once
+
+	return status;
+}
+
+ErrorCode KESCPPrefsScriptProvider::GetSetCaptionAlignment
+(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+{
+	ErrorCode status = kFailure;
+
+	do
+	{
+		ScriptData scriptData;
+		PMString pMString_captionAlignment;
+		ILinkCaptionPrefs::CaptionAlignment captionAlignment = ILinkCaptionPrefs::kAlignBelow;
+		// ---------------------------------------------------------------------------------------
+		// Query ILinkCaptionPrefs
+		IActiveContext* iActiveContext = ::GetExecutionContextSession()->GetActiveContext();
+		if (iActiveContext == nil) break;
+
+		InterfacePtr<ILinkCaptionPrefs> iLinkCaptionPrefs(
+			(ILinkCaptionPrefs*)::QueryPreferences(IID_ILINKCAPTIONPREFS, iActiveContext)
+		);
+		if (iLinkCaptionPrefs == nil) break;
+
+		// ---------------------------------------------------------------------------------------
+		// Processing request data
+		if (iScriptRequestData->IsPropertyGet()) // Get
+		{
+			captionAlignment = iLinkCaptionPrefs->GetCaptionAlignment();
+
+			switch (captionAlignment)
+			{
+			case ILinkCaptionPrefs::kAlignBelow:
+				pMString_captionAlignment = "Below";
+				break;
+
+			case ILinkCaptionPrefs::kAlignAbove:
+				pMString_captionAlignment = "Above";
+				break;
+
+			case ILinkCaptionPrefs::kAlignLeft:
+				pMString_captionAlignment = "Left";
+				break;
+
+			case ILinkCaptionPrefs::kAlignRight:
+				pMString_captionAlignment = "Right";
+				break;
+
+			default:
+				break;
+			}
+
+			// ---------------------------------------------------------------------------------------
+			// Append return data
+			scriptData.SetPMString(pMString_captionAlignment);
+
+			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, scriptData);
+		}
+		else if (iScriptRequestData->IsPropertyPut()) // Set
+		{
+			// ---------------------------------------------------------------------------------------
+			// Extract request data
+			status = iScriptRequestData->ExtractRequestData(scriptID_property.Get(), scriptData);
+			if (status != kSuccess) break;
+
+			status = scriptData.GetPMString(pMString_captionAlignment);
+			if (status != kSuccess) break;
+
+			if (pMString_captionAlignment == "Below")
+			{
+				captionAlignment = ILinkCaptionPrefs::kAlignBelow;
+			}
+			else if (pMString_captionAlignment == "Above")
+			{
+				captionAlignment = ILinkCaptionPrefs::kAlignAbove;
+			}
+			else if (pMString_captionAlignment == "Left")
+			{
+				captionAlignment = ILinkCaptionPrefs::kAlignLeft;
+			}
+			else if (pMString_captionAlignment == "Right")
+			{
+				captionAlignment = ILinkCaptionPrefs::kAlignRight;
+			}
+			else
+			{
+				break;
+			}
+
+			// ---------------------------------------------------------------------------------------
+			// Set.
+			iLinkCaptionPrefs->SetCaptionAlignment(captionAlignment);
 		}
 		status = kSuccess;
 

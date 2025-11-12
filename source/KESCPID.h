@@ -56,31 +56,6 @@ DECLARE_PMID(kClassIDSpace, kKESCPPrefsScriptProviderBoss, kKESCPPrefix + 0)
 
 // ImplementationIDs:
 DECLARE_PMID(kImplementationIDSpace, kKESCPPrefsScriptProviderImpl, kKESCPPrefix + 0 )
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 1)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 2)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 3)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 4)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 5)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 6)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 7)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 8)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 9)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 10)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 11)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 12)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 13)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 14)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 15)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 16)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 17)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 18)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 19)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 20)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 21)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 22)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 23)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 24)
-//DECLARE_PMID(kImplementationIDSpace, kKESCPImpl, kKESCPPrefix + 25)
 
 // ActionIDs:
 DECLARE_PMID(kActionIDSpace, kKESCPAboutActionID, kKESCPPrefix + 0)
@@ -95,6 +70,8 @@ DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionPreferenceObjectPropertyScriptElem
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPFrameOffsetPropertyScriptElement, kKESCPPrefix + 2)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionParagraphStyleUIDPropertyScriptElement, kKESCPPrefix + 3)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionLayerNamePropertyScriptElement, kKESCPPrefix + 4)
+DECLARE_PMID(kScriptInfoIDSpace, kKESCPGroupCaptionWithImagePropertyScriptElement, kKESCPPrefix + 5)
+DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionAlignmentPropertyScriptElement, kKESCPPrefix + 6)
 
 // "About Plug-ins" sub-menu:
 #define kKESCPAboutMenuKey			kKESCPStringPrefix "kKESCPAboutMenuKey"
