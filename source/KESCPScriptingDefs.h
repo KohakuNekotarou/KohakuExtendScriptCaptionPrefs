@@ -33,7 +33,9 @@ DECLARE_GUID(CPrefs_CLSID, kCPrefs_CLSID);
 
 enum KESCPScriptClasses
 {
-	c_KESCPCaptionPreference = 'KCPe'
+	c_KESCPCaptionPreferences = 'KCPe',
+	c_KESCPCaptionLine = 'KCLi',
+	c_KESCPCaptionLines = 'KCLs',
 };
 
 // Method IDs

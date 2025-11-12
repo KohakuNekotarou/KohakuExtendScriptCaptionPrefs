@@ -96,7 +96,17 @@ resource ClassDescriptionTable(kSDKDefClassDescriptionTableResourceID)
 		kKESCPPrefsScriptProviderBoss,
 		kBaseScriptProviderBoss,
 		{
-			IID_ISCRIPTPROVIDER, kKESCPPrefsScriptProviderImpl,
+			IID_ISCRIPTPROVIDER, kKESCPCaptionPreferencesScriptProviderImpl,
+		}
+	},
+
+	// kKESCPRepresentScriptProviderBoss
+	Class
+	{
+		kKESCPRepresentScriptProviderBoss,
+		kBaseScriptProviderBoss,
+		{
+			IID_ISCRIPTPROVIDER, kKESCPCaptionLinesScriptProviderImpl,
 		}
 	},
 }}};
@@ -183,10 +193,10 @@ resource VersionedScriptElementInfo(2)
                 Parent { kApplicationObjectScriptElement },
 
 				// the represented object
-				RepresentObject{ kKESCPCaptionPreferenceObjectScriptElement },
+				RepresentObject{ kKESCPCaptionPreferencesObjectScriptElement },
 
 				// the property on the parent object that will refer to the represented object
-				ParentProperty{ kKESCPCaptionPreferenceObjectPropertyScriptElement, kReadWrite },	
+				ParentProperty{ kKESCPCaptionPreferencesObjectPropertyScriptElement, kReadWrite },	
 
 				// Property
 				Property{ kKESCPFrameOffsetPropertyScriptElement, kReadWrite },
@@ -208,8 +218,8 @@ resource VersionedScriptElementInfo(2)
 		// Object: caption preference
 		Object
 		{
-			kKESCPCaptionPreferenceObjectScriptElement,	// object's script element ID
-			c_KESCPCaptionPreference, // script PropID
+			kKESCPCaptionPreferencesObjectScriptElement,	// object's script element ID
+			c_KESCPCaptionPreferences, // script PropID
 			"k e s c p caption preference", // name
 			"KESCP caption preference.", // description
 			kCPrefs_CLSID, // Windows CLSID
@@ -221,11 +231,11 @@ resource VersionedScriptElementInfo(2)
 		// Property (of the parent): caption preferences
 		Property
 		{
-			kKESCPCaptionPreferenceObjectPropertyScriptElement,
+			kKESCPCaptionPreferencesObjectPropertyScriptElement,
 			p_KESCPCaptionPreferences,
 			"k e s c p caption preferences", // name
 			"KESCP caption preferences.", // description
-			ObjectType( kKESCPCaptionPreferenceObjectScriptElement ),
+			ObjectType( kKESCPCaptionPreferencesObjectScriptElement ),
 			{}
 			kNoAttributeClass,
 		}
@@ -289,10 +299,35 @@ resource VersionedScriptElementInfo(2)
             {}
             kNoAttributeClass,
         }
+
+		// ---------------------------------------------------------------------------------------
+		Provider
+		{
+			kKESCPRepresentScriptProviderBoss,
+			{
+				Parent{ kKESCPCaptionPreferencesObjectScriptElement },					
+				RepresentObject{ kKESCPCaptionLinesObjectScriptElement },		
+                // Property{ kParentStoryPropertyScriptElement, kReadOnly },
+			}
+		}
+
+		Object
+		{
+			kKESCPCaptionLinesObjectScriptElement, // Script element ID
+			c_KESCPCaptionLine, // ScriptID
+			"k e s c p caption line", // Name
+			"KESCP caption line", // Description
+			kKESCPCaptionLineObject_CLSID, // Windows CLSID
+			c_KESCPCaptionLines, // Collection
+			"k e s c p caption lines", // Name
+			"KESCP caption lines", // Description
+			kKESCPCaptionLinesObject_CLSID, // Windows CLSID
+			kNonIDBasedObjectScriptElement, // base object script element ID // base object script element ID
+			kBasicSuiteScriptElement,	// suite script element ID	// suite script element ID
+		}
 	}
 };
 
-	
 #endif // __ODFRC__
 
 #include "KESCP_enUS.fr"

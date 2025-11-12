@@ -21,4 +21,5 @@
 //  
 //========================================================================================
 
-REGISTER_PMINTERFACE(KESCPPrefsScriptProvider, kKESCPPrefsScriptProviderImpl)
+REGISTER_PMINTERFACE(KESCPCaptionPreferencesScriptProvider, kKESCPCaptionPreferencesScriptProviderImpl)
+REGISTER_PMINTERFACE(KESCPCaptionLinesScriptProvider, kKESCPCaptionLinesScriptProviderImpl)
