@@ -49,15 +49,13 @@
 DECLARE_PMID(kPlugInIDSpace, kKESCPPluginID, kKESCPPrefix + 0)
 
 // ClassIDs:
-DECLARE_PMID(kClassIDSpace, kKESCPPrefsScriptProviderBoss, kKESCPPrefix + 0)
-DECLARE_PMID(kClassIDSpace, kKESCPRepresentScriptProviderBoss, kKESCPPrefix + 1)
+DECLARE_PMID(kClassIDSpace, kKESCPCaptionPreferencesScriptProviderBoss, kKESCPPrefix + 0)
 
 // InterfaceIDs:
 //DECLARE_PMID(kInterfaceIDSpace, IID_IKESCPINTERFACE, kKESCPPrefix + 0)
 
 // ImplementationIDs:
 DECLARE_PMID(kImplementationIDSpace, kKESCPCaptionPreferencesScriptProviderImpl, kKESCPPrefix + 0)
-DECLARE_PMID(kImplementationIDSpace, kKESCPCaptionLinesScriptProviderImpl, kKESCPPrefix + 1)
 
 // ActionIDs:
 DECLARE_PMID(kActionIDSpace, kKESCPAboutActionID, kKESCPPrefix + 0)
@@ -74,12 +72,6 @@ DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionParagraphStyleUIDPropertyScriptEle
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionLayerNamePropertyScriptElement, kKESCPPrefix + 4)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPGroupCaptionWithImagePropertyScriptElement, kKESCPPrefix + 5)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionAlignmentPropertyScriptElement, kKESCPPrefix + 6)
-DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionLinesObjectScriptElement, kKESCPPrefix + 7)
-
-// GUIDs for script objects:
-// Visual Studio : Tools > Generate GUID
-#define kKESCPCaptionLineObject_CLSID { 0xec736bdc2, 0x751b, 0x4e24, { 0xa5, 0x23, 0x34, 0xb, 0x42, 0x19, 0xd9, 0x7d } }
-#define kKESCPCaptionLinesObject_CLSID { 0xef16e7f0e, 0x7df5, 0x473d, { 0x93, 0x04, 0xc9, 0xa8, 0xb0, 0x65, 0x02, 0x95 } }
 
 // "About Plug-ins" sub-menu:
 #define kKESCPAboutMenuKey			kKESCPStringPrefix "kKESCPAboutMenuKey"

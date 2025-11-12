@@ -90,23 +90,13 @@ resource ExtraPluginInfo(1)
 resource ClassDescriptionTable(kSDKDefClassDescriptionTableResourceID)
 {{{
 	// ---------------------------------------------------------------------------------------
-	// kKESCPPrefsScriptProviderBoss
+	// kKESCPCaptionPreferencesScriptProviderBoss
 	Class
 	{
-		kKESCPPrefsScriptProviderBoss,
+		kKESCPCaptionPreferencesScriptProviderBoss,
 		kBaseScriptProviderBoss,
 		{
 			IID_ISCRIPTPROVIDER, kKESCPCaptionPreferencesScriptProviderImpl,
-		}
-	},
-
-	// kKESCPRepresentScriptProviderBoss
-	Class
-	{
-		kKESCPRepresentScriptProviderBoss,
-		kBaseScriptProviderBoss,
-		{
-			IID_ISCRIPTPROVIDER, kKESCPCaptionLinesScriptProviderImpl,
 		}
 	},
 }}};
@@ -187,7 +177,7 @@ resource VersionedScriptElementInfo(2)
 		// ---------------------------------------------------------------------------------------
 		Provider
         {
-            kKESCPPrefsScriptProviderBoss,
+            kKESCPCaptionPreferencesScriptProviderBoss,
             {
 				// parent to the represented object
                 Parent { kApplicationObjectScriptElement },
@@ -299,32 +289,6 @@ resource VersionedScriptElementInfo(2)
             {}
             kNoAttributeClass,
         }
-
-		// ---------------------------------------------------------------------------------------
-		Provider
-		{
-			kKESCPRepresentScriptProviderBoss,
-			{
-				Parent{ kKESCPCaptionPreferencesObjectScriptElement },					
-				RepresentObject{ kKESCPCaptionLinesObjectScriptElement },		
-                // Property{ kParentStoryPropertyScriptElement, kReadOnly },
-			}
-		}
-
-		Object
-		{
-			kKESCPCaptionLinesObjectScriptElement, // Script element ID
-			c_KESCPCaptionLine, // ScriptID
-			"k e s c p caption line", // Name
-			"KESCP caption line", // Description
-			kKESCPCaptionLineObject_CLSID, // Windows CLSID
-			c_KESCPCaptionLines, // Collection
-			"k e s c p caption lines", // Name
-			"KESCP caption lines", // Description
-			kKESCPCaptionLinesObject_CLSID, // Windows CLSID
-			kNonIDBasedObjectScriptElement, // base object script element ID // base object script element ID
-			kBasicSuiteScriptElement,	// suite script element ID	// suite script element ID
-		}
 	}
 };
 
