@@ -210,7 +210,7 @@ resource VersionedScriptElementInfo(2)
 		{
 			kKESCPCaptionPreferencesObjectScriptElement,	// object's script element ID
 			c_KESCPCaptionPreferences, // script PropID
-			"k e s c p caption preference", // name
+			"KESCP caption preference", // name
 			"KESCP caption preference.", // description
 			kCPrefs_CLSID, // Windows CLSID
 			NoCollectionInfo, // CollectionElementType (scriptID, name, descr, CLSID)
@@ -223,7 +223,7 @@ resource VersionedScriptElementInfo(2)
 		{
 			kKESCPCaptionPreferencesObjectPropertyScriptElement,
 			p_KESCPCaptionPreferences,
-			"k e s c p caption preferences", // name
+			"KESCP caption preferences", // name
 			"KESCP caption preferences.", // description
 			ObjectType( kKESCPCaptionPreferencesObjectScriptElement ),
 			{}
@@ -235,7 +235,7 @@ resource VersionedScriptElementInfo(2)
         {
             kKESCPFrameOffsetPropertyScriptElement,
             p_KESCPFrameOffset,
-            "k e s c p frame offset",
+            "KESCP frame offset",
             "KESCP frame offset.",
             RealType,
             {}
@@ -247,7 +247,7 @@ resource VersionedScriptElementInfo(2)
         {
             kKESCPCaptionParagraphStyleUIDPropertyScriptElement,
             p_KESCPCaptionParagraphStyleUID,
-            "k e s c p caption paragraph style i d",
+            "KESCP caption paragraph style i d",
             "KESCP caption paragraph style UID.",
             Int32Type,
             {}
@@ -259,7 +259,7 @@ resource VersionedScriptElementInfo(2)
         {
             kKESCPCaptionLayerNamePropertyScriptElement,
             p_KESCPCaptionLayerName,
-            "k e s c p caption layer name",
+            "KESCP caption layer name",
             "KESCP caption layer name.",
             StringType,
             {}
@@ -271,7 +271,7 @@ resource VersionedScriptElementInfo(2)
         {
             kKESCPGroupCaptionWithImagePropertyScriptElement,
             p_KESCPGroupCaptionWithImage,
-            "k e s c p group caption with image",
+            "KESCP group caption with image",
             "KESCP group caption with image.",
             BoolType,
             {}
@@ -283,7 +283,7 @@ resource VersionedScriptElementInfo(2)
         {
             kKESCPCaptionAlignmentPropertyScriptElement,
             p_KESCPCaptionAlignment
-            "k e s c p caption alignment",
+            "KESCP caption alignment",
             "KESCP caption alignment.",
             StringType,
             {}

@@ -152,9 +152,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetFrameOffset
 
 			// ---------------------------------------------------------------------------------------
 			// Append return data
-			scriptData.SetPMReal(pMReal_unit);
-
-			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, scriptData);
+			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, ScriptData(pMReal_unit));
 		}
 		else if (iScriptRequestData->IsPropertyPut()) // Set
 		{
@@ -262,9 +260,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionLayerName
 
 			// ---------------------------------------------------------------------------------------
 			// Append return data
-			scriptData.SetPMString(pMString_layerName);
-
-			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, scriptData);
+			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, ScriptData(pMString_layerName));
 		}
 		else if (iScriptRequestData->IsPropertyPut()) // Set
 		{
@@ -314,9 +310,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetGroupCaptionWithImage
 
 			// ---------------------------------------------------------------------------------------
 			// Append return data
-			scriptData.SetBoolean(bool16_groupCaptionFlg);
-
-			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, scriptData);
+			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, ScriptData(bool16_groupCaptionFlg));
 		}
 		else if (iScriptRequestData->IsPropertyPut()) // Set
 		{
@@ -389,9 +383,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionAlignment
 
 			// ---------------------------------------------------------------------------------------
 			// Append return data
-			scriptData.SetPMString(pMString_captionAlignment);
-
-			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, scriptData);
+			iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, ScriptData(pMString_captionAlignment));
 		}
 		else if (iScriptRequestData->IsPropertyPut()) // Set
 		{
