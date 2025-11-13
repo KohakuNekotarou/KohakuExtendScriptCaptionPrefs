@@ -90,13 +90,30 @@ resource ExtraPluginInfo(1)
 resource ClassDescriptionTable(kSDKDefClassDescriptionTableResourceID)
 {{{
 	// ---------------------------------------------------------------------------------------
-	// kKESCPCaptionPreferencesScriptProviderBoss
 	Class
 	{
 		kKESCPCaptionPreferencesScriptProviderBoss,
 		kBaseScriptProviderBoss,
 		{
 			IID_ISCRIPTPROVIDER, kKESCPCaptionPreferencesScriptProviderImpl,
+		}
+	},
+
+	Class
+	{
+		kKESCPCaptionLinesScriptProviderBoss,
+		kBaseScriptProviderBoss,
+		{
+			IID_ISCRIPTPROVIDER, kKESCPCaptionLinesScriptProviderImpl,
+		}
+	},
+
+	Class
+	{
+		kKESCPCaptionLinesScriptObjectBoss,
+		kBaseProxyScriptObjectBoss,
+		{
+			IID_ISCRIPT, kKESCPCaptionLinesScriptImpl,	
 		}
 	},
 }}};
@@ -289,6 +306,36 @@ resource VersionedScriptElementInfo(2)
             {}
             kNoAttributeClass,
         }
+
+		// ---------------------------------------------------------------------------------------
+		Provider
+		{
+			kKESCPCaptionLinesScriptProviderBoss,
+			{
+				// parent to the represented object
+				Parent { kKESCPCaptionPreferencesObjectScriptElement },
+
+				// the represented object
+				RepresentObject { kKESCPCaptionLinesObjectScriptElement },
+			}
+		}
+
+		Object
+		{
+			kKESCPCaptionLinesObjectScriptElement, // object's script element ID
+			c_KESCPCaptionLine, // script PropID
+			"KESCP caption line", // name
+			"KESCP caption line", // description
+			kKESCPCaptionLine_CLSID, // Windows CLSID
+
+			c_KESCPCaptionLine, // CollectionElementType
+			"KESCP caption lines",
+			"KESCP caption lines",
+			kKESCPCaptionLines_CLSID,
+
+			kNonIDBasedObjectScriptElement,	// base object element ID
+			kBasicSuiteScriptElement, // suite element ID
+		}
 	}
 };
 

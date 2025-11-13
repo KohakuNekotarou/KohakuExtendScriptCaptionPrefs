@@ -50,12 +50,16 @@ DECLARE_PMID(kPlugInIDSpace, kKESCPPluginID, kKESCPPrefix + 0)
 
 // ClassIDs:
 DECLARE_PMID(kClassIDSpace, kKESCPCaptionPreferencesScriptProviderBoss, kKESCPPrefix + 0)
+DECLARE_PMID(kClassIDSpace, kKESCPCaptionLinesScriptProviderBoss, kKESCPPrefix + 1)
+DECLARE_PMID(kClassIDSpace, kKESCPCaptionLinesScriptObjectBoss, kKESCPPrefix + 2)
 
 // InterfaceIDs:
 //DECLARE_PMID(kInterfaceIDSpace, IID_IKESCPINTERFACE, kKESCPPrefix + 0)
 
 // ImplementationIDs:
 DECLARE_PMID(kImplementationIDSpace, kKESCPCaptionPreferencesScriptProviderImpl, kKESCPPrefix + 0)
+DECLARE_PMID(kImplementationIDSpace, kKESCPCaptionLinesScriptImpl, kKESCPPrefix + 1)
+DECLARE_PMID(kImplementationIDSpace, kKESCPCaptionLinesScriptProviderImpl, kKESCPPrefix + 2)
 
 // ActionIDs:
 DECLARE_PMID(kActionIDSpace, kKESCPAboutActionID, kKESCPPrefix + 0)
@@ -72,6 +76,11 @@ DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionParagraphStyleUIDPropertyScriptEle
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionLayerNamePropertyScriptElement, kKESCPPrefix + 4)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPGroupCaptionWithImagePropertyScriptElement, kKESCPPrefix + 5)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionAlignmentPropertyScriptElement, kKESCPPrefix + 6)
+DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionLinesObjectScriptElement, kKESCPPrefix + 7)
+
+// GUIDs
+#define kKESCPCaptionLine_CLSID { 0xfe7b2072, 0x0183, 0x4be8, { 0x85, 0x09, 0x9d, 0xd7, 0x05, 0x51, 0x52, 0x77 } }
+#define kKESCPCaptionLines_CLSID { 0x496a7def, 0x5f0a, 0x44f1, { 0xb7, 0xd6, 0xc9, 0x66, 0xb8, 0x91, 0x9a, 0x07 } }
 
 // "About Plug-ins" sub-menu:
 #define kKESCPAboutMenuKey			kKESCPStringPrefix "kKESCPAboutMenuKey"
