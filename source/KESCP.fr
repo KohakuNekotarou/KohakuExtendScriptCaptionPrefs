@@ -308,6 +308,7 @@ resource VersionedScriptElementInfo(2)
         }
 
 		// ---------------------------------------------------------------------------------------
+		// Caption lines script provider
 		Provider
 		{
 			kKESCPCaptionLinesScriptProviderBoss,
@@ -320,6 +321,7 @@ resource VersionedScriptElementInfo(2)
 			}
 		}
 
+		// Caption lines object
 		Object
 		{
 			kKESCPCaptionLinesObjectScriptElement, // object's script element ID

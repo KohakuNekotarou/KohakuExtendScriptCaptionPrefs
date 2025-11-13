@@ -24,18 +24,14 @@
 #include "VCPlugInHeaders.h"
 
 // Interface includes
+#include "ILinkCaptionPrefs.h"
 #include "IScript.h"
-#include "IScriptEngine.h"
 #include "IScriptRequestData.h"
-#include "IScriptPreferences.h"
-#include "IScriptUtils.h"
-#include "ISelectionUtils.h"
-#include "IStringData.h"
-#include "IStringListData.h"
 
 // General includes
-#include "ScriptData.h" // also has typedef for ScriptListData
 #include "CScriptProvider.h" // for RepresentScriptProvider
+#include "PreferenceUtils.h" // for QueryPreferences
+#include "ScriptData.h" // also has typedef for ScriptListData
 
 // Project includes
 #include "KESCPScriptingDefs.h"
@@ -90,6 +86,19 @@ int32 KESCPCaptionLinesScriptProvider::GetNumObjects( const IScriptRequestData* 
 	int32 numObjects = 0;
 	do
 	{
+		// ---------------------------------------------------------------------------------------
+		// Query ILinkCaptionPrefs
+		IActiveContext* iActiveContext = GetExecutionContextSession()->GetActiveContext();
+		if (iActiveContext == nil) break;
+
+		InterfacePtr<ILinkCaptionPrefs> iLinkCaptionPrefs(
+			(ILinkCaptionPrefs*)::QueryPreferences(IID_ILINKCAPTIONPREFS, iActiveContext)
+		);
+		if (iLinkCaptionPrefs == nil) break;
+
+		// ---------------------------------------------------------------------------------------
+		// Get num caption lines
+		numObjects = iLinkCaptionPrefs->GetNumCaptionLines();
 
 	} while (false);
 	return numObjects;
