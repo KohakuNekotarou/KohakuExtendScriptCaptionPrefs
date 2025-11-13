@@ -53,6 +53,10 @@ enum KESCPScriptProperties
 	p_KESCPCaptionLayerName = 'KCLN',
 	p_KESCPGroupCaptionWithImage = 'KGCI',
 	p_KESCPCaptionAlignment = 'KCAl',
+
+
+
+	p_SnpRunnableName = 'KTES',
 };
 
 

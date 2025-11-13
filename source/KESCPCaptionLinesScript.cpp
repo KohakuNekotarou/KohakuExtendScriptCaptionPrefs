@@ -23,12 +23,6 @@
 
 #include "VCPlugInHeaders.h"
 
-// Interface includes:
-#include "IApplication.h"
-#include "IDataBase.h"
-#include "IPMUnknown.h"
-#include "IStringData.h"
-
 // General includes:
 #include "CProxyScript.h"
 
@@ -42,13 +36,6 @@ public:
 	KESCPCaptionLinesScript(IPMUnknown* boss);
 
 	virtual ~KESCPCaptionLinesScript(void);
-
-	// Returns the database related to this object.
-	// Since the SnippetRunner isn't persistent, we just return the application database.
-	virtual IDataBase* GetDataBase(const RequestContext& requestContext) const;
-
-private:
-	IDataBase* fDB;
 };
 
 // Make the implementation available to the application.
@@ -59,25 +46,7 @@ KESCPCaptionLinesScript::KESCPCaptionLinesScript(IPMUnknown* boss) : CProxyScrip
 {
 	// NOTE: this ScriptID must match that used in the call to IScriptUtils::CreateProxyScriptObject
 	fObjectType = c_KESCPCaptionLine;
-	fDB = nil;
 }
 
 // Destructor
 KESCPCaptionLinesScript::~KESCPCaptionLinesScript(void){}
-
-// GetDataBase
-// A safe way to determine the appropriate database for this object. Most implementations
-// can simply inherit and use the default implementation { return ::GetDataBase( this ) ; }
-// but some script bosses are non-persistent, and should therefore override this method.
-IDataBase* KESCPCaptionLinesScript::GetDataBase(const RequestContext& requestContext) const
-{
-	if (fDB == nil)
-	{
-		InterfacePtr<IApplication> iApplication(::GetExecutionContextSession()->QueryApplication());
-		if (iApplication != nil)
-		{
-			const_cast<KESCPCaptionLinesScript*>(this)->fDB = ::GetDataBase(iApplication);
-		}
-	}
-	return fDB;
-}

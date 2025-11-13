@@ -113,7 +113,8 @@ resource ClassDescriptionTable(kSDKDefClassDescriptionTableResourceID)
 		kKESCPCaptionLinesScriptObjectBoss,
 		kBaseProxyScriptObjectBoss,
 		{
-			IID_ISCRIPT, kKESCPCaptionLinesScriptImpl,	
+			IID_ISCRIPT, kKESCPCaptionLinesScriptImpl,
+			IID_IINTDATA, kIntDataImpl,
 		}
 	},
 }}};
@@ -330,7 +331,7 @@ resource VersionedScriptElementInfo(2)
 			"KESCP caption line", // description
 			kKESCPCaptionLine_CLSID, // Windows CLSID
 
-			c_KESCPCaptionLine, // CollectionElementType
+			c_KESCPCaptionLines, // CollectionElementType
 			"KESCP caption lines",
 			"KESCP caption lines",
 			kKESCPCaptionLines_CLSID,

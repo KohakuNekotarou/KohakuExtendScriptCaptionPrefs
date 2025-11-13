@@ -24,11 +24,13 @@
 #include "VCPlugInHeaders.h"
 
 // Interface includes
+#include "IIntData.h"
 #include "ILinkCaptionPrefs.h"
 #include "IScript.h"
 #include "IScriptRequestData.h"
 
 // General includes
+#include "CAlert.h" // CAlert::InformationAlert()
 #include "CScriptProvider.h" // for RepresentScriptProvider
 #include "PreferenceUtils.h" // for QueryPreferences
 #include "ScriptData.h" // also has typedef for ScriptListData
@@ -44,6 +46,8 @@ public:
 
 	virtual ~KESCPCaptionLinesScriptProvider(void);
 
+	virtual ErrorCode AccessProperty(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript);
+
 protected:
 	// Returns the number of objects (managed by this provider) of a specific type. 
 	// @see RepresentScriptProvider::GetNumObjects
@@ -51,7 +55,8 @@ protected:
 
 	// Returns the Nth object (managed by this provider) of a specific type. 
 	// @see RepresentScriptProvider::AppendNthObject
-	virtual ErrorCode AppendNthObject( const IScriptRequestData* data, IScript* parent, int32 n, ScriptList& objectList );
+	virtual ErrorCode AppendNthObject
+		( const IScriptRequestData* iScriptRequestData, IScript* iScript_parent, int32 int32_n, ScriptList& scriptList_object );
 
 
 
@@ -80,6 +85,32 @@ KESCPCaptionLinesScriptProvider::KESCPCaptionLinesScriptProvider(IPMUnknown* bos
 // Destructor
 KESCPCaptionLinesScriptProvider::~KESCPCaptionLinesScriptProvider(void)	{}
 
+// AccessProperty
+ErrorCode KESCPCaptionLinesScriptProvider::AccessProperty
+	(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript)
+{
+	ErrorCode result = kFailure;
+	do
+	{
+		switch (scriptID_property.Get())
+		{
+		case p_SnpRunnableName:
+			
+			break;
+		default:
+			// NOTE:
+			// The following properties are handled in the super class RepresentScriptProvider (See CScriptProvider.cpp):
+			// p_Index (kIndexPropertyScriptElement)
+			// p_Parent (kParentPropertyScriptElement)
+			// p_Properties (kPropertiesPropertyScriptElement)
+			result = RepresentScriptProvider::AccessProperty(scriptID_property, iScriptRequestData, iScript);
+			break;
+		}
+	} while (false);
+
+	return result;
+}
+
 // GetNumObjects
 int32 KESCPCaptionLinesScriptProvider::GetNumObjects( const IScriptRequestData* data, IScript* parent )
 {
@@ -105,12 +136,43 @@ int32 KESCPCaptionLinesScriptProvider::GetNumObjects( const IScriptRequestData* 
 }
 
 // AppendNthObject
-ErrorCode KESCPCaptionLinesScriptProvider::AppendNthObject( const IScriptRequestData* data, IScript* parent, int32 n, ScriptList& objectList )
+ErrorCode KESCPCaptionLinesScriptProvider::AppendNthObject
+(const IScriptRequestData* iScriptRequestData, IScript* iScript_parent, int32 int32_n, ScriptList& scriptList_object)
 {
 	ErrorCode result = kFailure;
+
 	do
 	{
+		// check input parameters
+		if (iScriptRequestData == nil || iScript_parent == nil) break;
+
+		// that we are getting the object ID we are expecting
+		ScriptID ScriptID_objectType = iScriptRequestData->GetDesiredType();
+		if (ScriptID_objectType != this->fScriptClassID) break;
+
+		// create a proxy script object
+		InterfacePtr<IScript> iScript_proxyScriptObject(Utils<IScriptUtils>()->CreateProxyScriptObject(
+			iScriptRequestData->GetRequestContext(),
+			this->fProviderClassID,
+			this->fScriptClassID,
+			iScript_parent
+		));
+		if (iScript_proxyScriptObject == nil) break;
+
+		// query for data interfaces
+		InterfacePtr<IIntData> iIntData(iScript_proxyScriptObject, ::UseDefaultIID());
+		if (iIntData == nil) break;
+
+		// set the index
+		iIntData->Set(int32_n);
+
+		// add the object to the list
+		// ASLSupport.lib is required
+		scriptList_object.push_back(iScript_proxyScriptObject);
+
+		result = kSuccess;
 
 	} while (false);
+
 	return result;
 }
