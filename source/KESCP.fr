@@ -317,8 +317,14 @@ resource VersionedScriptElementInfo(2)
 				// parent to the represented object
 				Parent { kKESCPCaptionPreferencesObjectScriptElement },
 
-				// the represented object
+				// Caption lines object
 				RepresentObject { kKESCPCaptionLinesObjectScriptElement },
+
+				// add
+				CollectionMethod{ kCreateMethodScriptElement },
+
+				// remove
+                Method{ kDeleteMethodScriptElement },
 			}
 		}
 
@@ -339,6 +345,44 @@ resource VersionedScriptElementInfo(2)
 			kNonIDBasedObjectScriptElement,	// base object element ID
 			kBasicSuiteScriptElement, // suite element ID
 		}
+
+
+		/*
+		// add caption line.
+		Method
+		{
+			kKESCPCreateCaptionLineMethodScriptElement,
+			e_Create,
+			"add",
+			"Create caption line",
+			ObjectType(kKESCPCaptionLinesObjectScriptElement), // Return value
+			{ // list of method parameters.
+				p_KESShortcutContextString, // Parameter's ScriptID.
+				"shortcut context string", // Parameter's name.
+				"Shortcut context string", // Parameter's description.
+				StringType, // Parameter's type.
+				kRequired, // kOptional or kRequired.
+
+				p_KESShortcutString, // Parameter's ScriptID.
+				"shortcut string", // Parameter's name.
+				"Shortcut string", // Parameter's description.
+				StringType, // Parameter's type.
+				kRequired, // kOptional or kRequired.
+			}
+		}
+		*/
+
+
+
+
+
+
+
+
+
+
+
+
 	}
 };
 

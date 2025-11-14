@@ -94,8 +94,9 @@ ErrorCode KESCPCaptionLinesScriptProvider::AccessProperty
 	{
 		switch (scriptID_property.Get())
 		{
-		case p_SnpRunnableName:
-			
+		case e_Create: // add
+			//return Utils<IPageItemScriptUtils>()->DoCreatePageItem(data, script, &this->CreateCandleChart);
+
 			break;
 		default:
 			// NOTE:
