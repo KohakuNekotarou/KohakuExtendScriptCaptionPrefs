@@ -102,7 +102,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::AccessProperty(ScriptID scriptI
 		status = this->GetSetFrameOffset(scriptID_property, iScriptRequestData, iScript_parent);
 		break;
 
-	case KESCPScriptProperties::p_KESCPCaptionParagraphStyleUID:
+	case KESCPScriptProperties::p_KESCPCaptionParagraphStyleID:
 		status = this->GetSetCaptionParagraphStyleUID(scriptID_property, iScriptRequestData, iScript_parent);
 		break;
 

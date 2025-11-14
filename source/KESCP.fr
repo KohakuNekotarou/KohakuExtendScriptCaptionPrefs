@@ -220,18 +220,20 @@ resource VersionedScriptElementInfo(2)
 				// app.kescpCaptionPreferences.kescpCaptionAlignment = "Right";
 				Property{ kKESCPCaptionAlignmentPropertyScriptElement, kReadWrite },
 
-				// Property
+				// KESCP frame offset
+				// app.kescpCaptionPreferences.kescpFrameOffset = 5;
 				Property{ kKESCPFrameOffsetPropertyScriptElement, kReadWrite },
 
-				// Property
+				// KESCP caption paragraph style UID
+				// captionParagraphStyleUID = app.kescpCaptionPreferences.kescpCaptionParagraphStyleID;
+				// app.kescpCaptionPreferences.kescpCaptionParagraphStyleID = app.activeDocument.paragraphStyles[0].id
 				Property{ kKESCPCaptionParagraphStyleUIDPropertyScriptElement, kReadWrite },
 
-				// Property
+				// KESCP caption layer name
 				Property{ kKESCPCaptionLayerNamePropertyScriptElement, kReadWrite },
 
 				// Property
 				Property{ kKESCPGroupCaptionWithImagePropertyScriptElement, kReadWrite },
-
 
             }
         }
@@ -295,9 +297,9 @@ resource VersionedScriptElementInfo(2)
 		Property
         {
             kKESCPCaptionParagraphStyleUIDPropertyScriptElement,
-            p_KESCPCaptionParagraphStyleUID,
+            p_KESCPCaptionParagraphStyleID,
             "KESCP caption paragraph style i d",
-            "KESCP caption paragraph style UID.",
+            "KESCP caption paragraph style ID.",
             Int32Type,
             {}
             kNoAttributeClass,
