@@ -26,6 +26,8 @@
 // Interface includes:
 #include "IActiveContext.h"
 #include "ILinkCaptionPrefs.h"
+#include "ILinkInfoProvider.h"
+#include "ILinksUIPanelPrefs.h"
 #include "IMeasurementSystem.h"
 #include "IScript.h"
 #include "IScriptRequestData.h"
@@ -447,7 +449,37 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetInfoProviderDescriptionStrin
 
 	do
 	{
-		
+		// ---------------------------------------------------------------------------------------
+		// Query argument.
+		ScriptData scriptData;
+		int32 int32_index;
+		if (iScriptRequestData->ExtractRequestData(p_KESCPInfoProviderIndex, scriptData) == kFailure) break;
+
+		if (scriptData.GetInt32(&int32_index) == kFailure) break;
+
+		// ---------------------------------------------------------------------------------------
+		// Query ILinkCaptionPrefs
+		IActiveContext* iActiveContext = ::GetExecutionContextSession()->GetActiveContext();
+		if (iActiveContext == nil) break;
+
+		InterfacePtr<ILinkCaptionPrefs> iLinkCaptionPrefs(
+			(ILinkCaptionPrefs*)::QueryPreferences(IID_ILINKCAPTIONPREFS, iActiveContext)
+		);
+		if (iLinkCaptionPrefs == nil) break;
+
+		// ---------------------------------------------------------------------------------------
+		// Get link info provider description string
+		InterfacePtr<ILinksUIPanelPrefs> iLinksUIPanelPrefs((ILinksUIPanelPrefs*)::QuerySessionPreferences(IID_ILINKSUIPANELPREFS));
+		if (iLinksUIPanelPrefs == nil) break;
+
+		InterfacePtr<ILinkInfoProvider> iLinkInfoProvider(iLinksUIPanelPrefs->QueryNthInfoProvider(int32_index));
+
+		PMString pMString_infoDescription = iLinkInfoProvider->GetInfoDescriptionString();
+
+		// ---------------------------------------------------------------------------------------
+		// Append return data
+		iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, ScriptData(pMString_infoDescription));
+
 		status = kSuccess;
 
 	} while (false); // only do once

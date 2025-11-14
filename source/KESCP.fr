@@ -197,14 +197,28 @@ resource VersionedScriptElementInfo(2)
         {
             kKESCPCaptionPreferencesScriptProviderBoss,
             {
-				// parent to the represented object
+				// Parent to the represented object
                 Parent { kApplicationObjectScriptElement },
 
-				// the represented object
+				// Represented object
+				// KESCP caption preferences Object
 				RepresentObject{ kKESCPCaptionPreferencesObjectScriptElement },
 
 				// the property on the parent object that will refer to the represented object
-				ParentProperty{ kKESCPCaptionPreferencesObjectPropertyScriptElement, kReadWrite },	
+				// captionPrefs = app.kescpCaptionPreferences;
+				ParentProperty{ kKESCPCaptionPreferencesObjectPropertyScriptElement, kReadOnly },
+				
+				// KESCP get info provider description string.
+				// infoProviderDescriptionString = app.kescpCaptionPreferences.kescpGetInfoProviderDescriptionString(0);
+				Method{ kKESCPGetInfoProviderDescriptionStringMethodScriptElement },
+
+				// KESCP caption alignment.
+				// captionAlignment = app.kescpCaptionPreferences.kescpCaptionAlignment;
+				// app.kescpCaptionPreferences.kescpCaptionAlignment = "Below";
+				// app.kescpCaptionPreferences.kescpCaptionAlignment = "Above";
+				// app.kescpCaptionPreferences.kescpCaptionAlignment = "Left";
+				// app.kescpCaptionPreferences.kescpCaptionAlignment = "Right";
+				Property{ kKESCPCaptionAlignmentPropertyScriptElement, kReadWrite },
 
 				// Property
 				Property{ kKESCPFrameOffsetPropertyScriptElement, kReadWrite },
@@ -218,10 +232,22 @@ resource VersionedScriptElementInfo(2)
 				// Property
 				Property{ kKESCPGroupCaptionWithImagePropertyScriptElement, kReadWrite },
 
-				// Property
-				Property{ kKESCPCaptionAlignmentPropertyScriptElement, kReadWrite },
+
             }
         }
+
+		// caption preference object
+		Object
+		{
+			kKESCPCaptionPreferencesObjectScriptElement,	// object's script element ID
+			c_KESCPCaptionPreferences, // script PropID
+			"KESCP caption preference", // name
+			"KESCP caption preference.", // description
+			kCPrefs_CLSID, // Windows CLSID
+			NoCollectionInfo, // CollectionElementType (scriptID, name, descr, CLSID)
+			kPreferencesObjectScriptElement,
+			kPreferencesSuiteScriptElement,
+		}
 
 		// KESCP get info provider description string
 		Method
@@ -239,19 +265,6 @@ resource VersionedScriptElementInfo(2)
 				Int32Type, // Parameter's type.
 				kRequired, // kOptional or kRequired
 			}
-		}
-
-		// Object: caption preference
-		Object
-		{
-			kKESCPCaptionPreferencesObjectScriptElement,	// object's script element ID
-			c_KESCPCaptionPreferences, // script PropID
-			"KESCP caption preference", // name
-			"KESCP caption preference.", // description
-			kCPrefs_CLSID, // Windows CLSID
-			NoCollectionInfo, // CollectionElementType (scriptID, name, descr, CLSID)
-			kPreferencesObjectScriptElement,
-			kPreferencesSuiteScriptElement,
 		}
 
 		// Property (of the parent): caption preferences
