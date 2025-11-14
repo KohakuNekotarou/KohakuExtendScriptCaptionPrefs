@@ -41,7 +41,7 @@ enum KESCPScriptClasses
 // Method IDs
 enum KESCPScriptEvents
 {
-	//e_Speak		= 'eSpk'
+	e_KESCPGetInfoProviderDescriptionString = 'KGPS'
 };
 
 // Property IDs
@@ -53,11 +53,7 @@ enum KESCPScriptProperties
 	p_KESCPCaptionLayerName = 'KCLN',
 	p_KESCPGroupCaptionWithImage = 'KGCI',
 	p_KESCPCaptionAlignment = 'KCAl',
-
-
-
-	p_SnpRunnableName = 'KTES',
+	p_KESCPInfoProviderIndex = 'KIPI',
 };
-
 
 #endif // __KESCPScriptingDefs_h__

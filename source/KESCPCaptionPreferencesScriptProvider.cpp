@@ -50,6 +50,8 @@ public:
 
 	~KESCPCaptionPreferencesScriptProvider(){}
 
+	virtual ErrorCode HandleMethod(ScriptID scriptID_method, IScriptRequestData* iScriptRequestData, IScript* iScript);
+
 	virtual ErrorCode AccessProperty(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
 
 private:
@@ -62,6 +64,8 @@ private:
 	virtual ErrorCode GetSetGroupCaptionWithImage(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
 
 	virtual ErrorCode GetSetCaptionAlignment(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
+
+	virtual ErrorCode GetInfoProviderDescriptionString(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
 };
 
 CREATE_PMINTERFACE(KESCPCaptionPreferencesScriptProvider, kKESCPCaptionPreferencesScriptProviderImpl)
@@ -72,6 +76,21 @@ KESCPCaptionPreferencesScriptProvider::KESCPCaptionPreferencesScriptProvider(IPM
 	DefinePreference(c_KESCPCaptionPreferences, p_KESCPCaptionPreferences);
 }
 
+// HandleMethod
+ErrorCode KESCPCaptionPreferencesScriptProvider::HandleMethod
+	(ScriptID scriptID_method, IScriptRequestData* iScriptRequestData, IScript* iScript)
+{
+	switch (scriptID_method.Get())
+	{
+	case e_KESCPGetInfoProviderDescriptionString:
+		return this->GetInfoProviderDescriptionString(scriptID_method, iScriptRequestData, iScript);
+
+	default:
+		return RepresentScriptProvider::HandleMethod(scriptID_method, iScriptRequestData, iScript);
+	}
+}
+
+// AccessProperty
 ErrorCode KESCPCaptionPreferencesScriptProvider::AccessProperty(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
 {
 	ErrorCode status = kFailure;
@@ -103,8 +122,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::AccessProperty(ScriptID scriptI
 	return status;
 }
 
-ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetFrameOffset
-(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetFrameOffset(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
 {
 	ErrorCode status = kFailure;
 
@@ -178,8 +196,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetFrameOffset
 	return status;
 }
 
-ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionParagraphStyleUID
-(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionParagraphStyleUID(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
 {
 	ErrorCode status = kFailure;
 
@@ -233,8 +250,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionParagraphStyleUID
 	return status;
 }
 
-ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionLayerName
-(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionLayerName(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
 {
 	ErrorCode status = kFailure;
 
@@ -283,8 +299,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionLayerName
 	return status;
 }
 
-ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetGroupCaptionWithImage
-(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetGroupCaptionWithImage(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
 {
 	ErrorCode status = kFailure;
 
@@ -333,8 +348,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetGroupCaptionWithImage
 	return status;
 }
 
-ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionAlignment
-(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionAlignment(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
 {
 	ErrorCode status = kFailure;
 
@@ -420,6 +434,20 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetSetCaptionAlignment
 			// Set.
 			iLinkCaptionPrefs->SetCaptionAlignment(captionAlignment);
 		}
+		status = kSuccess;
+
+	} while (false); // only do once
+
+	return status;
+}
+
+ErrorCode KESCPCaptionPreferencesScriptProvider::GetInfoProviderDescriptionString(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+{
+	ErrorCode status = kFailure;
+
+	do
+	{
+		
 		status = kSuccess;
 
 	} while (false); // only do once

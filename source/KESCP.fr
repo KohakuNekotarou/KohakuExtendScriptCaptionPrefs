@@ -223,6 +223,24 @@ resource VersionedScriptElementInfo(2)
             }
         }
 
+		// KESCP get info provider description string
+		Method
+		{
+			kKESCPGetInfoProviderDescriptionStringMethodScriptElement, // ScriptElementID
+			e_KESCPGetInfoProviderDescriptionString, // ScriptID
+			"KESCP get info provider description string", // Name.
+			"KESCP get info provider description string.", // Description
+			StringType, // Return value.
+			"Info provider description string.",
+			{ // list of method parameters.
+				p_KESCPInfoProviderIndex, // Parameter's ScriptID.
+				"index", // Parameter's name.
+				"Info provider index", // Parameter's description.
+				Int32Type, // Parameter's type.
+				kRequired, // kOptional or kRequired
+			}
+		}
+
 		// Object: caption preference
 		Object
 		{
