@@ -58,17 +58,14 @@ protected:
 	virtual ErrorCode AppendNthObject
 		( const IScriptRequestData* iScriptRequestData, IScript* iScript_parent, int32 int32_n, ScriptList& scriptList_object );
 
-
-
-	/** The ScriptID of the object represented by this 
-	 * 	RepresentScriptProvider implementation.
-	 */
+	// The ScriptID of the object represented by this RepresentScriptProvider implementation.
 	ScriptID fScriptClassID;
 
-	/** The ClassID of the boss class that has the IScript implementation 
-	 * 	for the script object identified by fScriptClassID.
-	 */
+	 // The ClassID of the boss class that has the IScript implementation for the script object identified by fScriptClassID.
 	ClassID  fProviderClassID;
+
+private:
+	ErrorCode GetBeforeString(IScriptRequestData* iScriptRequestData, IScript* iScript);
 };
 
 // Make the implementation available to the application.
@@ -94,7 +91,7 @@ ErrorCode KESCPCaptionLinesScriptProvider::AccessProperty
 	{
 		switch (scriptID_property.Get())
 		{
-		case e_Create: // add
+		case p_KESCPBeforeString:
 			//return Utils<IPageItemScriptUtils>()->DoCreatePageItem(data, script, &this->CreateCandleChart);
 
 			break;
@@ -170,6 +167,21 @@ ErrorCode KESCPCaptionLinesScriptProvider::AppendNthObject
 		// add the object to the list
 		// ASLSupport.lib is required
 		scriptList_object.push_back(iScript_proxyScriptObject);
+
+		result = kSuccess;
+
+	} while (false);
+
+	return result;
+}
+
+// AppendNthObject
+ErrorCode KESCPCaptionLinesScriptProvider::GetBeforeString(IScriptRequestData* iScriptRequestData, IScript* iScript)
+{
+	ErrorCode result = kFailure;
+
+	do
+	{
 
 		result = kSuccess;
 

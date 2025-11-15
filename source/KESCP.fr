@@ -231,7 +231,7 @@ resource VersionedScriptElementInfo(2)
 				// KESCP caption paragraph style UID
 				// captionParagraphStyleUID = app.kescpCaptionPreferences.kescpCaptionParagraphStyleID;
 				// app.kescpCaptionPreferences.kescpCaptionParagraphStyleID = app.activeDocument.paragraphStyles[0].id
-				Property{ kKESCPCaptionParagraphStyleUIDPropertyScriptElement, kReadWrite },
+				Property{ kKESCPCaptionParagraphStyleIDPropertyScriptElement, kReadWrite },
 
 				// KESCP caption layer name
 				// captionLayerName = app.kescpCaptionPreferences.kescpCaptionLayerName;
@@ -316,7 +316,7 @@ resource VersionedScriptElementInfo(2)
 		// Caption paragraph style UID
 		Property
         {
-            kKESCPCaptionParagraphStyleUIDPropertyScriptElement,
+            kKESCPCaptionParagraphStyleIDPropertyScriptElement,
             p_KESCPCaptionParagraphStyleID,
             "KESCP caption paragraph style i d",
             "KESCP caption paragraph style ID.",
@@ -371,13 +371,16 @@ resource VersionedScriptElementInfo(2)
 				Parent { kKESCPCaptionPreferencesObjectScriptElement },
 
 				// Caption lines object
+				// CaptionLines = app.kescpCaptionPreferences.kescpCaptionLines;
+				// CaptionLines.count();
 				RepresentObject { kKESCPCaptionLinesObjectScriptElement },
 
 				// add
-				CollectionMethod{ kCreateMethodScriptElement },
+				//CollectionMethod{ kCreateMethodScriptElement },
 
-				// remove
-                Method{ kDeleteMethodScriptElement },
+				// Before string
+				Property{ kKESCPBeforeStringPropertyScriptElement, kReadWrite },
+
 			}
 		}
 
@@ -407,7 +410,7 @@ resource VersionedScriptElementInfo(2)
 			kKESCPCreateCaptionLineMethodScriptElement,
 			e_Create,
 			"add",
-			"Create caption line",
+			"Create caption line.",
 			ObjectType(kKESCPCaptionLinesObjectScriptElement), // Return value
 			{ // list of method parameters.
 				p_KESShortcutContextString, // Parameter's ScriptID.
@@ -425,17 +428,17 @@ resource VersionedScriptElementInfo(2)
 		}
 		*/
 
-
-
-
-
-
-
-
-
-
-
-
+		// Before string
+		Property
+        {
+            kKESCPBeforeStringPropertyScriptElement,
+            p_KESCPBeforeString,
+            "KESCP before string",
+            "KESCP before string.",
+            StringType,
+            {}
+            kNoAttributeClass,
+        }
 	}
 };
 

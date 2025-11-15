@@ -55,6 +55,7 @@ enum KESCPScriptProperties
 	p_KESCPGroupCaptionWithImage = 'KGCI',
 	p_KESCPCaptionAlignment = 'KCAl',
 	p_KESCPInfoProviderIndex = 'KIPI',
+	p_KESCPBeforeString = 'KGBS',
 };
 
 #endif // __KESCPScriptingDefs_h__

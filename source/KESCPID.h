@@ -71,13 +71,14 @@ DECLARE_PMID(kActionIDSpace, kKESCPAboutActionID, kKESCPPrefix + 0)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionPreferencesObjectScriptElement, kKESCPPrefix + 0)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionPreferencesObjectPropertyScriptElement, kKESCPPrefix + 1)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPFrameOffsetPropertyScriptElement, kKESCPPrefix + 2)
-DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionParagraphStyleUIDPropertyScriptElement, kKESCPPrefix + 3)
+DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionParagraphStyleIDPropertyScriptElement, kKESCPPrefix + 3)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionLayerNamePropertyScriptElement, kKESCPPrefix + 4)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPGroupCaptionWithImagePropertyScriptElement, kKESCPPrefix + 5)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionAlignmentPropertyScriptElement, kKESCPPrefix + 6)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionLinesObjectScriptElement, kKESCPPrefix + 7)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPGetInfoProviderDescriptionStringMethodScriptElement, kKESCPPrefix + 8)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPGetNumInfoProvidersMethodScriptElement, kKESCPPrefix + 9)
+DECLARE_PMID(kScriptInfoIDSpace, kKESCPBeforeStringPropertyScriptElement, kKESCPPrefix + 10)
 
 // GUIDs
 #define kKESCPCaptionLine_CLSID { 0xfe7b2072, 0x0183, 0x4be8, { 0x85, 0x09, 0x9d, 0xd7, 0x05, 0x51, 0x52, 0x77 } }
