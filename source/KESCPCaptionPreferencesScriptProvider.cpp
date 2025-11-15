@@ -68,6 +68,8 @@ private:
 	virtual ErrorCode GetSetCaptionAlignment(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
 
 	virtual ErrorCode GetInfoProviderDescriptionString(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
+	
+	virtual ErrorCode GetNumInfoProviders(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent);
 };
 
 CREATE_PMINTERFACE(KESCPCaptionPreferencesScriptProvider, kKESCPCaptionPreferencesScriptProviderImpl)
@@ -86,6 +88,9 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::HandleMethod
 	{
 	case e_KESCPGetInfoProviderDescriptionString:
 		return this->GetInfoProviderDescriptionString(scriptID_method, iScriptRequestData, iScript);
+
+	case e_KESCPGetNumInfoProviders:
+		return this->GetNumInfoProviders(scriptID_method, iScriptRequestData, iScript);
 
 	default:
 		return RepresentScriptProvider::HandleMethod(scriptID_method, iScriptRequestData, iScript);
@@ -481,6 +486,42 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetInfoProviderDescriptionStrin
 		iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, ScriptData(pMString_infoDescription));
 
 		status = kSuccess;
+
+	} while (false); // only do once
+
+	return status;
+}
+
+ErrorCode KESCPCaptionPreferencesScriptProvider::GetNumInfoProviders(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript_parent)
+{
+	ErrorCode status = kFailure;
+
+	do
+	{
+		// ---------------------------------------------------------------------------------------
+		// Query ILinkCaptionPrefs
+		IActiveContext* iActiveContext = ::GetExecutionContextSession()->GetActiveContext();
+		if (iActiveContext == nil) break;
+
+		InterfacePtr<ILinkCaptionPrefs> iLinkCaptionPrefs(
+			(ILinkCaptionPrefs*)::QueryPreferences(IID_ILINKCAPTIONPREFS, iActiveContext)
+		);
+		if (iLinkCaptionPrefs == nil) break;
+
+		// ---------------------------------------------------------------------------------------
+		// Get num info providers
+		InterfacePtr<const ILinksUIPanelPrefs> iLinksUIPanelPrefs((ILinksUIPanelPrefs*)::QuerySessionPreferences(IID_ILINKSUIPANELPREFS));
+		if (iLinksUIPanelPrefs == nil) break;
+
+		int32 int32_numProviders = iLinksUIPanelPrefs->GetNumInfoProviders();
+
+		// ---------------------------------------------------------------------------------------
+		// Append return data
+		iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, ScriptData(int32_numProviders));
+
+		status = kSuccess;
+
+		// Ç”ÇüÇ¢ÇÈÇËÇªÅ[Ç∑Ç…ÇﬂÇªÇ¡Ç«Ç»Ç«ÇÇ¬Ç¢Ç©Ç∑ÇÈ
 
 	} while (false); // only do once
 

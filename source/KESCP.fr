@@ -208,6 +208,10 @@ resource VersionedScriptElementInfo(2)
 				// captionPrefs = app.kescpCaptionPreferences;
 				ParentProperty{ kKESCPCaptionPreferencesObjectPropertyScriptElement, kReadOnly },
 				
+				// KESCP get num info providers.
+				// NumInfoProviders = app.kescpCaptionPreferences.kescpGetNumInfoProviders();
+				Method{ kKESCPGetNumInfoProvidersMethodScriptElement },
+
 				// KESCP get info provider description string.
 				// infoProviderDescriptionString = app.kescpCaptionPreferences.kescpGetInfoProviderDescriptionString(0);
 				Method{ kKESCPGetInfoProviderDescriptionStringMethodScriptElement },
@@ -253,6 +257,18 @@ resource VersionedScriptElementInfo(2)
 			NoCollectionInfo, // CollectionElementType (scriptID, name, descr, CLSID)
 			kPreferencesObjectScriptElement,
 			kPreferencesSuiteScriptElement,
+		}
+		
+		// KESCP get num info providers
+		Method
+		{
+			kKESCPGetNumInfoProvidersMethodScriptElement, // ScriptElementID
+			e_KESCPGetNumInfoProviders, // ScriptID
+			"KESCP get num info providers", // Name.
+			"KESCP get num info providers.", // Description
+			Int32Type, // Return value.
+			"Num info providers.",
+			{}
 		}
 
 		// KESCP get info provider description string

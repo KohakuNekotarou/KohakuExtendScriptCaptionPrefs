@@ -41,7 +41,8 @@ enum KESCPScriptClasses
 // Method IDs
 enum KESCPScriptEvents
 {
-	e_KESCPGetInfoProviderDescriptionString = 'KGPS'
+	e_KESCPGetInfoProviderDescriptionString = 'KGPS',
+	e_KESCPGetNumInfoProviders = 'KGNP',
 };
 
 // Property IDs
