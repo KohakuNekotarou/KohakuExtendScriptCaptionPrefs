@@ -379,6 +379,7 @@ resource VersionedScriptElementInfo(2)
 				//CollectionMethod{ kCreateMethodScriptElement },
 
 				// Before string
+				// beforeString = app.kescpCaptionPreferences.kescpCaptionLines[0].kescpBeforeString;
 				Property{ kKESCPBeforeStringPropertyScriptElement, kReadWrite },
 
 			}

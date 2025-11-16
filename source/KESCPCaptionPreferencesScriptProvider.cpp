@@ -86,11 +86,11 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::HandleMethod
 {
 	switch (scriptID_method.Get())
 	{
-	case e_KESCPGetInfoProviderDescriptionString:
-		return this->GetInfoProviderDescriptionString(scriptID_method, iScriptRequestData, iScript);
-
 	case e_KESCPGetNumInfoProviders:
 		return this->GetNumInfoProviders(scriptID_method, iScriptRequestData, iScript);
+
+	case e_KESCPGetInfoProviderDescriptionString:
+		return this->GetInfoProviderDescriptionString(scriptID_method, iScriptRequestData, iScript);
 
 	default:
 		return RepresentScriptProvider::HandleMethod(scriptID_method, iScriptRequestData, iScript);
@@ -520,8 +520,6 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::GetNumInfoProviders(ScriptID sc
 		iScriptRequestData->AppendReturnData(iScript_parent, scriptID_property, ScriptData(int32_numProviders));
 
 		status = kSuccess;
-
-		// ‚Ó‚Ÿ‚¢‚é‚è‚»[‚·‚É‚ß‚»‚Á‚Ç‚È‚Ç‚ğ‚Â‚¢‚©‚·‚é
 
 	} while (false); // only do once
 

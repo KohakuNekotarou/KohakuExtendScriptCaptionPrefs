@@ -65,7 +65,7 @@ protected:
 	ClassID  fProviderClassID;
 
 private:
-	ErrorCode GetBeforeString(IScriptRequestData* iScriptRequestData, IScript* iScript);
+	ErrorCode GetSetBeforeString(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript);
 };
 
 // Make the implementation available to the application.
@@ -92,7 +92,7 @@ ErrorCode KESCPCaptionLinesScriptProvider::AccessProperty
 		switch (scriptID_property.Get())
 		{
 		case p_KESCPBeforeString:
-			//return Utils<IPageItemScriptUtils>()->DoCreatePageItem(data, script, &this->CreateCandleChart);
+			return this->GetSetBeforeString(scriptID_property, iScriptRequestData, iScript);
 
 			break;
 		default:
@@ -175,13 +175,105 @@ ErrorCode KESCPCaptionLinesScriptProvider::AppendNthObject
 	return result;
 }
 
-// AppendNthObject
-ErrorCode KESCPCaptionLinesScriptProvider::GetBeforeString(IScriptRequestData* iScriptRequestData, IScript* iScript)
+// Before string
+ErrorCode KESCPCaptionLinesScriptProvider::GetSetBeforeString(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript)
 {
 	ErrorCode result = kFailure;
 
 	do
 	{
+		// ---------------------------------------------------------------------------------------
+		// Query ILinkCaptionPrefs
+		IActiveContext* iActiveContext = GetExecutionContextSession()->GetActiveContext();
+		if (iActiveContext == nil) break;
+
+		InterfacePtr<ILinkCaptionPrefs> iLinkCaptionPrefs(
+			(ILinkCaptionPrefs*)::QueryPreferences(IID_ILINKCAPTIONPREFS, iActiveContext)
+		);
+		if (iLinkCaptionPrefs == nil) break;
+
+		// ---------------------------------------------------------------------------------------
+		// Get index
+		InterfacePtr<IIntData> iIntData(iScript, ::UseDefaultIID());
+		if (iIntData == nil) break;
+
+		int32 int32_index = iIntData->Get();
+
+		// ---------------------------------------------------------------------------------------
+		// Processing request data
+		PMString pMString_BeforeString;
+		if (iScriptRequestData->IsPropertyGet()) // Get
+		{
+			// Get nth before string
+			pMString_BeforeString = iLinkCaptionPrefs->GetNthBeforeString(int32_index);
+
+			// Append return data
+			iScriptRequestData->AppendReturnData(iScript, scriptID_property, ScriptData(pMString_BeforeString));
+		}
+		else if (iScriptRequestData->IsPropertyPut()) // Set
+		{
+			// ---------------------------------------------------------------------------------------
+			// Extract request data
+			ScriptData scriptData;
+			result = iScriptRequestData->ExtractRequestData(scriptID_property.Get(), scriptData);
+			if (result != kSuccess) break;
+
+			result = scriptData.GetPMString(pMString_BeforeString);
+			if (result != kSuccess) break;
+
+			// Num caption lines
+			int32 int32_NumCaptionLines = iLinkCaptionPrefs->GetNumCaptionLines();
+
+			std::vector<PMString> vector_beforeString, vector_linkInfoProviderName, vector_afterString;
+			PMString pMString_beforeStringOrign, pMString_linkInfoProviderNameOrign, pMString_afterStringOrign;
+			for (int32 i = 0; i < int32_NumCaptionLines; i++)
+			{
+
+
+				PMString targetString ="BeforeString";
+
+
+
+
+				// ---------------------------------------------------------------------------------------
+				// Before string
+				pMString_beforeStringOrign = iLinkCaptionPrefs->GetNthBeforeString(i);
+				if (targetString != "" || i != int32_index)
+				{
+					if (targetString == "BeforeString" && i == int32_index) pMString_beforeStringOrign = pMString_BeforeString;
+
+					vector_beforeString.emplace_back(pMString_beforeStringOrign);
+				}
+
+				// ---------------------------------------------------------------------------------------
+				// Link info provider name
+				pMString_linkInfoProviderNameOrign = iLinkCaptionPrefs->GetNthLinkInfoProviderName(i);
+				if (targetString != "" || i != int32_index)
+				{
+					if (targetString == "LinkInfoProviderName" && i == int32_index) pMString_linkInfoProviderNameOrign = "nekoneko";
+
+					vector_linkInfoProviderName.emplace_back(pMString_linkInfoProviderNameOrign);
+				}
+
+				// ---------------------------------------------------------------------------------------
+				// After string 
+				pMString_afterStringOrign = iLinkCaptionPrefs->GetNthAfterString(i);
+				if (targetString != "" || i != int32_index)
+				{
+					if (targetString == "AfterString" && i == int32_index) pMString_linkInfoProviderNameOrign = "nekoneko";
+
+					vector_afterString.emplace_back(pMString_afterStringOrign);
+				}
+			}
+
+			// Clear all caption lines
+			iLinkCaptionPrefs->ClearAllCaptionLines();
+
+			for (int32 i = 0; i < int32_NumCaptionLines; i++)
+			{
+				iLinkCaptionPrefs->AddNewCaptionLine(vector_beforeString[i], vector_linkInfoProviderName[i], vector_afterString[i]);
+			}
+		}
 
 		result = kSuccess;
 
