@@ -70,6 +70,9 @@ private:
 	// Add new caption line
 	ErrorCode AddNewCaptionLine(ScriptID scriptID_method, IScriptRequestData* iScriptRequestData, IScript* iScript);
 
+	// Remove caption line
+	ErrorCode RemoveCaptionLine(ScriptID scriptID_method, IScriptRequestData* iScriptRequestData, IScript* iScript);
+
 	ErrorCode GetSetLinkCaptionString(
 		ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript, PMString targetString);
 
@@ -99,6 +102,10 @@ ErrorCode KESCPCaptionLinesScriptProvider::HandleMethod(
 	{
 	case e_Create:
 		return this->AddNewCaptionLine(scriptID_method, iScriptRequestData, iScript);
+		break;
+
+	case e_Remove:
+		return this->RemoveCaptionLine(scriptID_method, iScriptRequestData, iScript);
 		break;
 
 	default:
@@ -223,7 +230,67 @@ ErrorCode KESCPCaptionLinesScriptProvider::AddNewCaptionLine(
 		);
 		if (iLinkCaptionPrefs == nil) break;
 
+		// ---------------------------------------------------------------------------------------
+		// Get argument
+		ScriptData scriptData;
+
+		// Get before string
+		result = iScriptRequestData->ExtractRequestData(p_KESCPBeforeString, scriptData);
+		if (result != kSuccess) break;
+
+		PMString pMString_BeforeString;
+		result = scriptData.GetPMString(pMString_BeforeString);
+		if (result != kSuccess) break;
+
+		// Get link info provider name
+		result = iScriptRequestData->ExtractRequestData(p_KESCPLinkInfoProviderName, scriptData);
+		if (result != kSuccess) break;
+
+		PMString pMString_LinkInfoProviderName;
+		result = scriptData.GetPMString(pMString_LinkInfoProviderName);
+		if (result != kSuccess) break;
+
+		// Get after string
+		result = iScriptRequestData->ExtractRequestData(p_KESCPAfterString, scriptData);
+		if (result != kSuccess) break;
+
+		PMString pMString_AfterString;
+		result = scriptData.GetPMString(pMString_AfterString);
+		if (result != kSuccess) break;
+
+		// ---------------------------------------------------------------------------------------
+		// Add new caption line
+		iLinkCaptionPrefs->AddNewCaptionLine(pMString_BeforeString, pMString_LinkInfoProviderName, pMString_AfterString);
+
+		result = kSuccess;
+
+	} while (false);
+
+	return result;
+}
+
+// Remove caption line
+ErrorCode KESCPCaptionLinesScriptProvider::RemoveCaptionLine(
+	ScriptID scriptID_method, IScriptRequestData* iScriptRequestData, IScript* iScript)
+{
+	ErrorCode result = kFailure;
+
+	do
+	{
+		// ---------------------------------------------------------------------------------------
+		// Query ILinkCaptionPrefs
+		IActiveContext* iActiveContext = GetExecutionContextSession()->GetActiveContext();
+		if (iActiveContext == nil) break;
+
+		InterfacePtr<ILinkCaptionPrefs> iLinkCaptionPrefs(
+			(ILinkCaptionPrefs*)::QueryPreferences(IID_ILINKCAPTIONPREFS, iActiveContext)
+		);
+		if (iLinkCaptionPrefs == nil) break;
+
+		// ‚±‚±‚©‚ç
+
 		
+
 		result = kSuccess;
 
 	} while (false);
