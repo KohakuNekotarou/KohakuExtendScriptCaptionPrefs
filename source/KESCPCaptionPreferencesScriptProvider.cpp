@@ -93,7 +93,7 @@ ErrorCode KESCPCaptionPreferencesScriptProvider::HandleMethod
 		return this->GetInfoProviderDescriptionString(scriptID_method, iScriptRequestData, iScript);
 
 	default:
-		return RepresentScriptProvider::HandleMethod(scriptID_method, iScriptRequestData, iScript);
+		return PrefsScriptProvider::HandleMethod(scriptID_method, iScriptRequestData, iScript);
 	}
 }
 

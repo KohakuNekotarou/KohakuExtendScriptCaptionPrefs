@@ -46,9 +46,9 @@ public:
 
 	virtual ~KESCPCaptionLinesScriptProvider(void);
 
-	virtual ErrorCode AccessProperty(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript);
+	virtual ErrorCode HandleMethod(ScriptID scriptID_method, IScriptRequestData* iScriptRequestData, IScript* iScript);
 
-	// ‚ ‚­‚¹‚·‚ß‚»‚Á‚Ç‚Â‚­‚é‚©‚ç
+	virtual ErrorCode AccessProperty(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript);
 
 protected:
 	// Returns the number of objects (managed by this provider) of a specific type. 
@@ -67,9 +67,11 @@ protected:
 	ClassID  fProviderClassID;
 
 private:
+	// Add new caption line
+	ErrorCode AddNewCaptionLine(ScriptID scriptID_method, IScriptRequestData* iScriptRequestData, IScript* iScript);
+
 	ErrorCode GetSetLinkCaptionString(
-		ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript, PMString targetString
-	);
+		ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript, PMString targetString);
 
 	void EditCaptionLines( PMString targetString, int32 int32_index, PMString pMString_newString );
 };
@@ -88,38 +90,52 @@ KESCPCaptionLinesScriptProvider::KESCPCaptionLinesScriptProvider(IPMUnknown* bos
 // Destructor
 KESCPCaptionLinesScriptProvider::~KESCPCaptionLinesScriptProvider(void)	{}
 
-// AccessProperty
-ErrorCode KESCPCaptionLinesScriptProvider::AccessProperty
-	(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript)
+// HandleMethod
+ErrorCode KESCPCaptionLinesScriptProvider::HandleMethod(
+	ScriptID scriptID_method, IScriptRequestData* iScriptRequestData, IScript* iScript)
 {
 	ErrorCode result = kFailure;
-	do
+	switch (scriptID_method.Get())
 	{
-		switch (scriptID_property.Get())
-		{
-		case p_KESCPBeforeString:
-			return this->GetSetLinkCaptionString(scriptID_property, iScriptRequestData, iScript, "BeforeString");
-			break;
+	case e_Create:
+		return this->AddNewCaptionLine(scriptID_method, iScriptRequestData, iScript);
+		break;
 
-		case p_KESCPLinkInfoProviderName:
-			return this->GetSetLinkCaptionString(scriptID_property, iScriptRequestData, iScript, "LinkInfoProviderName");
-			break;
+	default:
+		return RepresentScriptProvider::HandleMethod(scriptID_method, iScriptRequestData, iScript);
+	}
+	return result;
+}
 
-		case p_KESCPAfterString:
-			return this->GetSetLinkCaptionString(scriptID_property, iScriptRequestData, iScript, "AfterString");
-			break;
+// AccessProperty
+ErrorCode KESCPCaptionLinesScriptProvider::AccessProperty(
+	ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript)
+{
+	ErrorCode result = kFailure;
 
-		default:
-			// NOTE:
-			// The following properties are handled in the super class RepresentScriptProvider (See CScriptProvider.cpp):
-			// p_Index (kIndexPropertyScriptElement)
-			// p_Parent (kParentPropertyScriptElement)
-			// p_Properties (kPropertiesPropertyScriptElement)
-			result = RepresentScriptProvider::AccessProperty(scriptID_property, iScriptRequestData, iScript);
-			break;
-		}
-	} while (false);
+	switch (scriptID_property.Get())
+	{
+	case p_KESCPBeforeString:
+		return this->GetSetLinkCaptionString(scriptID_property, iScriptRequestData, iScript, "BeforeString");
+		break;
 
+	case p_KESCPLinkInfoProviderName:
+		return this->GetSetLinkCaptionString(scriptID_property, iScriptRequestData, iScript, "LinkInfoProviderName");
+		break;
+
+	case p_KESCPAfterString:
+		return this->GetSetLinkCaptionString(scriptID_property, iScriptRequestData, iScript, "AfterString");
+		break;
+
+	default:
+		// NOTE:
+		// The following properties are handled in the super class RepresentScriptProvider (See CScriptProvider.cpp):
+		// p_Index (kIndexPropertyScriptElement)
+		// p_Parent (kParentPropertyScriptElement)
+		// p_Properties (kPropertiesPropertyScriptElement)
+		result = RepresentScriptProvider::AccessProperty(scriptID_property, iScriptRequestData, iScript);
+		break;
+	}
 	return result;
 }
 
@@ -148,8 +164,8 @@ int32 KESCPCaptionLinesScriptProvider::GetNumObjects( const IScriptRequestData* 
 }
 
 // AppendNthObject
-ErrorCode KESCPCaptionLinesScriptProvider::AppendNthObject
-(const IScriptRequestData* iScriptRequestData, IScript* iScript_parent, int32 int32_n, ScriptList& scriptList_object)
+ErrorCode KESCPCaptionLinesScriptProvider::AppendNthObject(
+	const IScriptRequestData* iScriptRequestData, IScript* iScript_parent, int32 int32_n, ScriptList& scriptList_object)
 {
 	ErrorCode result = kFailure;
 
@@ -182,6 +198,32 @@ ErrorCode KESCPCaptionLinesScriptProvider::AppendNthObject
 		// ASLSupport.lib is required
 		scriptList_object.push_back(iScript_proxyScriptObject);
 
+		result = kSuccess;
+
+	} while (false);
+
+	return result;
+}
+
+// Add new caption line
+ErrorCode KESCPCaptionLinesScriptProvider::AddNewCaptionLine(
+	ScriptID scriptID_method, IScriptRequestData* iScriptRequestData, IScript* iScript)
+{
+	ErrorCode result = kFailure;
+
+	do
+	{
+		// ---------------------------------------------------------------------------------------
+		// Query ILinkCaptionPrefs
+		IActiveContext* iActiveContext = GetExecutionContextSession()->GetActiveContext();
+		if (iActiveContext == nil) break;
+
+		InterfacePtr<ILinkCaptionPrefs> iLinkCaptionPrefs(
+			(ILinkCaptionPrefs*)::QueryPreferences(IID_ILINKCAPTIONPREFS, iActiveContext)
+		);
+		if (iLinkCaptionPrefs == nil) break;
+
+		
 		result = kSuccess;
 
 	} while (false);
@@ -250,7 +292,6 @@ ErrorCode KESCPCaptionLinesScriptProvider::GetSetLinkCaptionString(
 			// Edit caption lines
 			this->EditCaptionLines(targetString, int32_index, pMString_captionLinesString);
 		}
-
 		result = kSuccess;
 
 	} while (false);
@@ -289,7 +330,6 @@ void KESCPCaptionLinesScriptProvider::EditCaptionLines(PMString targetString, in
 
 				vector_beforeString.emplace_back(pMString_beforeStringOrign);
 			}
-
 			// ---------------------------------------------------------------------------------------
 			// Link info provider name
 			pMString_linkInfoProviderNameOrign = iLinkCaptionPrefs->GetNthLinkInfoProviderName(i);
@@ -299,7 +339,6 @@ void KESCPCaptionLinesScriptProvider::EditCaptionLines(PMString targetString, in
 
 				vector_linkInfoProviderName.emplace_back(pMString_linkInfoProviderNameOrign);
 			}
-
 			// ---------------------------------------------------------------------------------------
 			// After string 
 			pMString_afterStringOrign = iLinkCaptionPrefs->GetNthAfterString(i);
@@ -310,7 +349,6 @@ void KESCPCaptionLinesScriptProvider::EditCaptionLines(PMString targetString, in
 				vector_afterString.emplace_back(pMString_afterStringOrign);
 			}
 		}
-
 		// Clear all caption lines
 		iLinkCaptionPrefs->ClearAllCaptionLines();
 
