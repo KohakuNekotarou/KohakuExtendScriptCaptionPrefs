@@ -380,6 +380,7 @@ resource VersionedScriptElementInfo(2)
 
 				// Before string
 				// beforeString = app.kescpCaptionPreferences.kescpCaptionLines[0].kescpBeforeString;
+				// app.kescpCaptionPreferences.kescpCaptionLines[0].kescpBeforeString = "Kohaku";
 				Property{ kKESCPBeforeStringPropertyScriptElement, kReadWrite },
 
 			}

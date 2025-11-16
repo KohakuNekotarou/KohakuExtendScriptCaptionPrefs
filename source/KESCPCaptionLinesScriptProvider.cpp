@@ -65,9 +65,11 @@ protected:
 	ClassID  fProviderClassID;
 
 private:
-	ErrorCode GetSetBeforeString(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript);
+	ErrorCode GetSetLinkCaptionString(
+		ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript, PMString targetString
+	);
 
-	void EditCaptionLines(PMString targetString, int32 int32_index, PMString pMString_newString);
+	void EditCaptionLines( PMString targetString, int32 int32_index, PMString pMString_newString );
 };
 
 // Make the implementation available to the application.
@@ -94,9 +96,17 @@ ErrorCode KESCPCaptionLinesScriptProvider::AccessProperty
 		switch (scriptID_property.Get())
 		{
 		case p_KESCPBeforeString:
-			return this->GetSetBeforeString(scriptID_property, iScriptRequestData, iScript);
-
+			return this->GetSetLinkCaptionString(scriptID_property, iScriptRequestData, iScript, "BeforeString");
 			break;
+
+		case p_KESCPLinkInfoProviderName:
+			return this->GetSetLinkCaptionString(scriptID_property, iScriptRequestData, iScript, "LinkInfoProviderName");
+			break;
+
+		case p_KESCPAfterString:
+			return this->GetSetLinkCaptionString(scriptID_property, iScriptRequestData, iScript, "AfterString");
+			break;
+
 		default:
 			// NOTE:
 			// The following properties are handled in the super class RepresentScriptProvider (See CScriptProvider.cpp):
@@ -178,7 +188,7 @@ ErrorCode KESCPCaptionLinesScriptProvider::AppendNthObject
 }
 
 // Before string
-ErrorCode KESCPCaptionLinesScriptProvider::GetSetBeforeString(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript)
+ErrorCode KESCPCaptionLinesScriptProvider::GetSetLinkCaptionString(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript, PMString targetString)
 {
 	ErrorCode result = kFailure;
 
@@ -225,7 +235,7 @@ ErrorCode KESCPCaptionLinesScriptProvider::GetSetBeforeString(ScriptID scriptID_
 
 			// ---------------------------------------------------------------------------------------
 			// Edit caption lines
-			this->EditCaptionLines("BeforeString", int32_index, pMString_BeforeString);
+			this->EditCaptionLines(targetString, int32_index, pMString_BeforeString);
 		}
 
 		result = kSuccess;

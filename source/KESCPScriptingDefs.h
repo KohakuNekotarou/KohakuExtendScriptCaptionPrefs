@@ -56,6 +56,8 @@ enum KESCPScriptProperties
 	p_KESCPCaptionAlignment = 'KCAl',
 	p_KESCPInfoProviderIndex = 'KIPI',
 	p_KESCPBeforeString = 'KGBS',
+	p_KESCPLinkInfoProviderName = 'KIPN',
+	p_KESCPAfterString = 'KASt',
 };
 
 #endif // __KESCPScriptingDefs_h__
