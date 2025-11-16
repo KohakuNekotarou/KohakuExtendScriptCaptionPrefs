@@ -376,7 +376,9 @@ resource VersionedScriptElementInfo(2)
 				RepresentObject { kKESCPCaptionLinesObjectScriptElement },
 
 				// Add
-				//CollectionMethod{ kCreateMethodScriptElement },
+				// infoProviderDescriptionString = app.kescpCaptionPreferences.kescpGetInfoProviderDescriptionString(0);
+				// app.kescpCaptionPreferences.kescpCaptionLines.add("Kohaku", infoProviderDescriptionString, "Nekotarou");
+				CollectionMethod{ kKESCPAddCaptionLineMethodScriptElement },
 
 				// Before string
 				//	beforeString = app.kescpCaptionPreferences.kescpCaptionLines[0].kescpBeforeString;
@@ -389,9 +391,10 @@ resource VersionedScriptElementInfo(2)
 				//	app.kescpCaptionPreferences.kescpCaptionLines[0].kescpLinkInfoProviderName = infoProviderDescriptionString;
 				Property{ kKESCPLinkInfoProviderNamePropertyScriptElement, kReadWrite },
 
-
-
-
+				// After string
+				//	AfterString = app.kescpCaptionPreferences.kescpCaptionLines[0].kescpAfterString;
+				//	app.kescpCaptionPreferences.kescpCaptionLines[0].kescpAfterString = "Nekotarou";
+				Property{ kKESCPAfterStringPropertyScriptElement, kReadWrite },
 			}
 		}
 
@@ -413,31 +416,35 @@ resource VersionedScriptElementInfo(2)
 			kBasicSuiteScriptElement, // suite element ID
 		}
 
-
-		/*
-		// add caption line.
+		// Add caption line
 		Method
 		{
-			kKESCPCreateCaptionLineMethodScriptElement,
+			kKESCPAddCaptionLineMethodScriptElement,
 			e_Create,
 			"add",
-			"Create caption line.",
-			ObjectType(kKESCPCaptionLinesObjectScriptElement), // Return value
+			"Add caption line.",
+			ObjectType(kKESCPCaptionLinesObjectScriptElement),
+			"Caption lines object.",
 			{ // list of method parameters.
-				p_KESShortcutContextString, // Parameter's ScriptID.
-				"shortcut context string", // Parameter's name.
-				"Shortcut context string", // Parameter's description.
-				StringType, // Parameter's type.
+				p_KESCPBeforeString,
+				"KESCP before string",
+				"KESCP before string.",
+				StringType,
 				kRequired, // kOptional or kRequired.
 
-				p_KESShortcutString, // Parameter's ScriptID.
-				"shortcut string", // Parameter's name.
-				"Shortcut string", // Parameter's description.
-				StringType, // Parameter's type.
+				p_KESCPLinkInfoProviderName,
+				"KESCP link info provider name",
+				"KESCP link info provider name.",
+				StringType,
+				kRequired, // kOptional or kRequired.
+
+				p_KESCPAfterString,
+				"KESCP after string",
+				"KESCP after string.",
+				StringType,
 				kRequired, // kOptional or kRequired.
 			}
 		}
-		*/
 
 		// Before string
 		Property
@@ -458,6 +465,18 @@ resource VersionedScriptElementInfo(2)
             p_KESCPLinkInfoProviderName,
             "KESCP link info provider name",
             "KESCP link info provider name.",
+            StringType,
+            {}
+            kNoAttributeClass,
+        }
+
+		// After string
+		Property
+        {
+            kKESCPAfterStringPropertyScriptElement,
+            p_KESCPAfterString,
+            "KESCP after string",
+            "KESCP after string.",
             StringType,
             {}
             kNoAttributeClass,

@@ -48,6 +48,8 @@ public:
 
 	virtual ErrorCode AccessProperty(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript);
 
+	// ‚ ‚­‚¹‚·‚ß‚»‚Á‚Ç‚Â‚­‚é‚©‚ç
+
 protected:
 	// Returns the number of objects (managed by this provider) of a specific type. 
 	// @see RepresentScriptProvider::GetNumObjects
@@ -303,7 +305,7 @@ void KESCPCaptionLinesScriptProvider::EditCaptionLines(PMString targetString, in
 			pMString_afterStringOrign = iLinkCaptionPrefs->GetNthAfterString(i);
 			if (targetString != "" || i != int32_index)
 			{
-				if (targetString == "AfterString" && i == int32_index) pMString_linkInfoProviderNameOrign = pMString_newString;
+				if (targetString == "AfterString" && i == int32_index) pMString_afterStringOrign = pMString_newString;
 
 				vector_afterString.emplace_back(pMString_afterStringOrign);
 			}
