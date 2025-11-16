@@ -79,6 +79,7 @@ DECLARE_PMID(kScriptInfoIDSpace, kKESCPCaptionLinesObjectScriptElement, kKESCPPr
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPGetInfoProviderDescriptionStringMethodScriptElement, kKESCPPrefix + 8)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPGetNumInfoProvidersMethodScriptElement, kKESCPPrefix + 9)
 DECLARE_PMID(kScriptInfoIDSpace, kKESCPBeforeStringPropertyScriptElement, kKESCPPrefix + 10)
+DECLARE_PMID(kScriptInfoIDSpace, kKESCPLinkInfoProviderNamePropertyScriptElement, kKESCPPrefix + 11)
 
 // GUIDs
 #define kKESCPCaptionLine_CLSID { 0xfe7b2072, 0x0183, 0x4be8, { 0x85, 0x09, 0x9d, 0xd7, 0x05, 0x51, 0x52, 0x77 } }

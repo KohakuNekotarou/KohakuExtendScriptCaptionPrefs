@@ -188,7 +188,8 @@ ErrorCode KESCPCaptionLinesScriptProvider::AppendNthObject
 }
 
 // Before string
-ErrorCode KESCPCaptionLinesScriptProvider::GetSetLinkCaptionString(ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript, PMString targetString)
+ErrorCode KESCPCaptionLinesScriptProvider::GetSetLinkCaptionString(
+	ScriptID scriptID_property, IScriptRequestData* iScriptRequestData, IScript* iScript, PMString targetString)
 {
 	ErrorCode result = kFailure;
 
@@ -213,14 +214,24 @@ ErrorCode KESCPCaptionLinesScriptProvider::GetSetLinkCaptionString(ScriptID scri
 
 		// ---------------------------------------------------------------------------------------
 		// Processing request data
-		PMString pMString_BeforeString;
+		PMString pMString_captionLinesString;
 		if (iScriptRequestData->IsPropertyGet()) // Get
 		{
-			// Get nth before string
-			pMString_BeforeString = iLinkCaptionPrefs->GetNthBeforeString(int32_index);
+			if (targetString == "BeforeString") // Get nth before string
+			{
+				pMString_captionLinesString = iLinkCaptionPrefs->GetNthBeforeString(int32_index);
+			}
+			else if (targetString == "LinkInfoProviderName") // Get link info provider name
+			{
+				pMString_captionLinesString = iLinkCaptionPrefs->GetNthLinkInfoProviderName(int32_index);
+			}
+			else if (targetString == "AfterString") // Get after string
+			{
+				pMString_captionLinesString = iLinkCaptionPrefs->GetNthAfterString(int32_index);
+			}
 
 			// Append return data
-			iScriptRequestData->AppendReturnData(iScript, scriptID_property, ScriptData(pMString_BeforeString));
+			iScriptRequestData->AppendReturnData(iScript, scriptID_property, ScriptData(pMString_captionLinesString));
 		}
 		else if (iScriptRequestData->IsPropertyPut()) // Set
 		{
@@ -230,12 +241,12 @@ ErrorCode KESCPCaptionLinesScriptProvider::GetSetLinkCaptionString(ScriptID scri
 			result = iScriptRequestData->ExtractRequestData(scriptID_property.Get(), scriptData);
 			if (result != kSuccess) break;
 
-			result = scriptData.GetPMString(pMString_BeforeString);
+			result = scriptData.GetPMString(pMString_captionLinesString);
 			if (result != kSuccess) break;
 
 			// ---------------------------------------------------------------------------------------
 			// Edit caption lines
-			this->EditCaptionLines(targetString, int32_index, pMString_BeforeString);
+			this->EditCaptionLines(targetString, int32_index, pMString_captionLinesString);
 		}
 
 		result = kSuccess;
