@@ -13,7 +13,7 @@ sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Indesign\ 2025/Plug-i
 Please execute.
 
 note:<br>
-use ScriptListData<br>
+When using ScriptListData on Windows<br>
 https://community.adobe.com/t5/indesign-discussions/cs5-unable-to-find-local-new-delete-g/m-p/2713086<br>
 Visual Studio : <br>
 Right-click on the project<br>
