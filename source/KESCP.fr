@@ -197,14 +197,14 @@ resource VersionedScriptElementInfo(2)
         {
             kKESCPCaptionPreferencesScriptProviderBoss,
             {
-				// Parent to the represented object
+				// Parent to the represented object.
                 Parent { kApplicationObjectScriptElement },
 
 				// Represented object
-				// Caption preferences Object
+				// Caption preferences Object.
 				RepresentObject{ kKESCPCaptionPreferencesObjectScriptElement },
 
-				// the property on the parent object that will refer to the represented object
+				// the property on the parent object that will refer to the represented object.
 				// captionPrefs = app.kescpCaptionPreferences;
 				ParentProperty{ kKESCPCaptionPreferencesObjectPropertyScriptElement, kReadOnly },
 				
@@ -224,21 +224,21 @@ resource VersionedScriptElementInfo(2)
 				// app.kescpCaptionPreferences.kescpCaptionAlignment = "Right";
 				Property{ kKESCPCaptionAlignmentPropertyScriptElement, kReadWrite },
 
-				// Frame offset
+				// Frame offset.
 				// app.kescpCaptionPreferences.kescpFrameOffset = 5;
 				Property{ kKESCPFrameOffsetPropertyScriptElement, kReadWrite },
 
-				// Caption paragraph style UID
-				// captionParagraphStyleUID = app.kescpCaptionPreferences.kescpCaptionParagraphStyleID;
-				// app.kescpCaptionPreferences.kescpCaptionParagraphStyleID = app.activeDocument.paragraphStyles[0].id
+				// Caption paragraph style ID.
+				// captionParagraphStyleID = app.kescpCaptionPreferences.kescpCaptionParagraphStyleID;
+				// app.kescpCaptionPreferences.kescpCaptionParagraphStyleID = app.activeDocument.paragraphStyles[0].id;
 				Property{ kKESCPCaptionParagraphStyleIDPropertyScriptElement, kReadWrite },
 
-				// Caption layer name
+				// Caption layer name.
 				// captionLayerName = app.kescpCaptionPreferences.kescpCaptionLayerName;
 				// app.kescpCaptionPreferences.kescpCaptionLayerName = captionLayerName;
 				Property{ kKESCPCaptionLayerNamePropertyScriptElement, kReadWrite },
 
-				// Group caption with image
+				// Group caption with image.
 				// groupCaptionWithImage = app.kescpCaptionPreferences.kescpGroupCaptionWithImage;
 				// app.kescpCaptionPreferences.kescpGroupCaptionWithImage = true;
 				Property{ kKESCPGroupCaptionWithImagePropertyScriptElement, kReadWrite },
@@ -367,37 +367,37 @@ resource VersionedScriptElementInfo(2)
 		{
 			kKESCPCaptionLinesScriptProviderBoss,
 			{
-				// parent to the represented object
+				// parent to the represented object.
 				Parent { kKESCPCaptionPreferencesObjectScriptElement },
 
-				// Caption lines object
+				// Caption lines object.
 				//	CaptionLines = app.kescpCaptionPreferences.kescpCaptionLines;
 				//	CaptionLines.count();
 				RepresentObject { kKESCPCaptionLinesObjectScriptElement },
 
-				// Add
+				// Add.
 				// KescpCaptionLinesObject does not have an ID; it can only be accessed by index.
 				// Added objects are appended to the end.
 				// infoProviderDescriptionString = app.kescpCaptionPreferences.kescpGetInfoProviderDescriptionString(0);
-				// app.kescpCaptionPreferences.kescpCaptionLines.add("Kohaku", infoProviderDescriptionString, "Nekotarou");
+				// app.kescpCaptionPreferences.kescpCaptionLines.kescpAdd("Kohaku", infoProviderDescriptionString, "Nekotarou");
 				CollectionMethod{ kKESCPAddCaptionLineMethodScriptElement },
 
-				// Remove
-				// app.kescpCaptionPreferences.kescpCaptionLines.remove();
+				// Remove.
+				// app.kescpCaptionPreferences.kescpCaptionLines[0].kescpRemove();
 				Method{ kKESCPRemoveCaptionLineMethodScriptElement },
 
-				// Before string
+				// Before string.
 				//	beforeString = app.kescpCaptionPreferences.kescpCaptionLines[0].kescpBeforeString;
 				//	app.kescpCaptionPreferences.kescpCaptionLines[0].kescpBeforeString = "Kohaku";
 				Property{ kKESCPBeforeStringPropertyScriptElement, kReadWrite },
 
-				// Link info provider name
+				// Link info provider name.
 				//	linkInfoProviderName = app.kescpCaptionPreferences.kescpCaptionLines[0].kescpLinkInfoProviderName;
 				//	infoProviderDescriptionString = app.kescpCaptionPreferences.kescpGetInfoProviderDescriptionString(0);
 				//	app.kescpCaptionPreferences.kescpCaptionLines[0].kescpLinkInfoProviderName = infoProviderDescriptionString;
 				Property{ kKESCPLinkInfoProviderNamePropertyScriptElement, kReadWrite },
 
-				// After string
+				// After string.
 				//	AfterString = app.kescpCaptionPreferences.kescpCaptionLines[0].kescpAfterString;
 				//	app.kescpCaptionPreferences.kescpCaptionLines[0].kescpAfterString = "Nekotarou";
 				Property{ kKESCPAfterStringPropertyScriptElement, kReadWrite },
@@ -426,8 +426,8 @@ resource VersionedScriptElementInfo(2)
 		Method
 		{
 			kKESCPAddCaptionLineMethodScriptElement,
-			e_Create,
-			"add",
+			e_KESCPAddCaptionLine,
+			"KESCP add",
 			"Add caption line.",
 			VoidType,
 			{ // list of method parameters.
@@ -455,8 +455,8 @@ resource VersionedScriptElementInfo(2)
 		Method
 		{
 			kKESCPRemoveCaptionLineMethodScriptElement,
-			e_Remove,
-			"remove",
+			e_KESCPRemoveCaptionLine,
+			"KESCP remove",
 			"Remove caption line.",
 			VoidType,
 			{ // list of method parameters.

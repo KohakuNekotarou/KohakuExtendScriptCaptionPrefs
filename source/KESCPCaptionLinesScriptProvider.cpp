@@ -102,11 +102,11 @@ ErrorCode KESCPCaptionLinesScriptProvider::HandleMethod(
 	ErrorCode result = kFailure;
 	switch (scriptID_method.Get())
 	{
-	case e_Create:
+	case e_KESCPAddCaptionLine:
 		return this->AddNewCaptionLine(scriptID_method, iScriptRequestData, iScript);
 		break;
 
-	case e_Remove:
+	case e_KESCPRemoveCaptionLine:
 		return this->RemoveCaptionLine(scriptID_method, iScriptRequestData, iScript);
 		break;
 

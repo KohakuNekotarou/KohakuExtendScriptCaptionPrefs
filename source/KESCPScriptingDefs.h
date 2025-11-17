@@ -41,8 +41,10 @@ enum KESCPScriptClasses
 // Method IDs
 enum KESCPScriptEvents
 {
+	e_KESCPAddCaptionLine = 'KACL',
 	e_KESCPGetInfoProviderDescriptionString = 'KGPS',
 	e_KESCPGetNumInfoProviders = 'KGNP',
+	e_KESCPRemoveCaptionLine = 'KRCL',
 };
 
 // Property IDs
