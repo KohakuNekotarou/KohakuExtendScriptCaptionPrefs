@@ -63,10 +63,10 @@ CaptionLines.count();
 // KescpCaptionLinesObject does not have an ID; it can only be accessed by index.
 // Added objects are appended to the end.
 infoProviderDescriptionString = app.kescpCaptionPreferences.kescpGetInfoProviderDescriptionString(0);
-app.kescpCaptionPreferences.kescpCaptionLines.add("Kohaku", infoProviderDescriptionString, "Nekotarou");
+app.kescpCaptionPreferences.kescpCaptionLines.kescpAdd("Kohaku", infoProviderDescriptionString, "Nekotarou");
 
 // Remove.
-app.kescpCaptionPreferences.kescpCaptionLines[0].remove();
+app.kescpCaptionPreferences.kescpCaptionLines[0].kescpRemove();
 
 // Before string.
 beforeString = app.kescpCaptionPreferences.kescpCaptionLines[0].kescpBeforeString;
