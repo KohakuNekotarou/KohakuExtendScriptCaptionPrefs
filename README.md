@@ -12,6 +12,14 @@ Refer to the above and use Terminal to<br>
 sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Indesign\ 2025/Plug-ins/KohakuExtendScriptCaptionPrefs.InDesignPlugin<br>
 Please execute.
 
+note:<br>
+use ScriptListData<br>
+https://community.adobe.com/t5/indesign-discussions/cs5-unable-to-find-local-new-delete-g/m-p/2713086<br>
+Visual Studio : <br>
+Right-click on the project<br>
+Properties > Configuration Properties > Linker > Input > Additional Dependencies<br>
+SDK\build\win\objrx64\ASLSupport.lib
+
 ## extendScript for JavaScript
 ```
 // Edit caption preferences.
