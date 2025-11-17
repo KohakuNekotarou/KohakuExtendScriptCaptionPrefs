@@ -27,7 +27,7 @@ infoProviderDescriptionString = app.kescpCaptionPreferences.kescpGetInfoProvider
 app.kescpCaptionPreferences.kescpCaptionLines.add("Kohaku", infoProviderDescriptionString, "Nekotarou");
 
 // Remove
-app.kescpCaptionPreferences.kescpCaptionLines.remove();
+app.kescpCaptionPreferences.kescpCaptionLines[0].remove();
 
 // Before string
 beforeString = app.kescpCaptionPreferences.kescpCaptionLines[0].kescpBeforeString;
