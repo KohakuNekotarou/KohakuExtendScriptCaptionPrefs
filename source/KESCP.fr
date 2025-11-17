@@ -376,9 +376,15 @@ resource VersionedScriptElementInfo(2)
 				RepresentObject { kKESCPCaptionLinesObjectScriptElement },
 
 				// Add
+				// KescpCaptionLinesObject does not have an ID; it can only be accessed by index.
+				// Added objects are appended to the end.
 				// infoProviderDescriptionString = app.kescpCaptionPreferences.kescpGetInfoProviderDescriptionString(0);
 				// app.kescpCaptionPreferences.kescpCaptionLines.add("Kohaku", infoProviderDescriptionString, "Nekotarou");
 				CollectionMethod{ kKESCPAddCaptionLineMethodScriptElement },
+
+				// Remove
+				// app.kescpCaptionPreferences.kescpCaptionLines.remove();
+				Method{ kKESCPRemoveCaptionLineMethodScriptElement },
 
 				// Before string
 				//	beforeString = app.kescpCaptionPreferences.kescpCaptionLines[0].kescpBeforeString;
@@ -423,8 +429,7 @@ resource VersionedScriptElementInfo(2)
 			e_Create,
 			"add",
 			"Add caption line.",
-			ObjectType(kKESCPCaptionLinesObjectScriptElement),
-			"Caption lines object.",
+			VoidType,
 			{ // list of method parameters.
 				p_KESCPBeforeString,
 				"KESCP before string",
@@ -443,6 +448,18 @@ resource VersionedScriptElementInfo(2)
 				"KESCP after string.",
 				StringType,
 				kRequired, // kOptional or kRequired.
+			}
+		}
+
+		// Remove caption line
+		Method
+		{
+			kKESCPRemoveCaptionLineMethodScriptElement,
+			e_Remove,
+			"remove",
+			"Remove caption line.",
+			VoidType,
+			{ // list of method parameters.
 			}
 		}
 

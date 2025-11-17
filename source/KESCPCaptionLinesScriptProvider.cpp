@@ -26,6 +26,8 @@
 // Interface includes
 #include "IIntData.h"
 #include "ILinkCaptionPrefs.h"
+#include "ILinkInfoProvider.h"
+#include "ILinksUIPanelPrefs.h"
 #include "IScript.h"
 #include "IScriptRequestData.h"
 
@@ -287,9 +289,42 @@ ErrorCode KESCPCaptionLinesScriptProvider::RemoveCaptionLine(
 		);
 		if (iLinkCaptionPrefs == nil) break;
 
-		// ‚±‚±‚©‚ç
+		// ---------------------------------------------------------------------------------------
+		// Get index
+		InterfacePtr<IIntData> iIntData(iScript, ::UseDefaultIID());
+		if (iIntData == nil) break;
 
-		
+		int32 int32_index = iIntData->Get();
+
+		// ---------------------------------------------------------------------------------------
+		// Remove
+
+		int32 int32_numCaptionLines = iLinkCaptionPrefs->GetNumCaptionLines();
+
+		// Caption lines must be present in at least one instance.
+		if (int32_numCaptionLines == 1) {
+
+			// Clear all caption lines
+			iLinkCaptionPrefs->ClearAllCaptionLines();
+
+			// ---------------------------------------------------------------------------------------
+			// Get link info provider description string
+			InterfacePtr<ILinksUIPanelPrefs> iLinksUIPanelPrefs((ILinksUIPanelPrefs*)::QuerySessionPreferences(IID_ILINKSUIPANELPREFS));
+			if (iLinksUIPanelPrefs == nil) break;
+
+			InterfacePtr<ILinkInfoProvider> iLinkInfoProvider(iLinksUIPanelPrefs->QueryNthInfoProvider(0));
+
+			PMString pMString_infoDescription = iLinkInfoProvider->GetInfoDescriptionString();
+
+			// ---------------------------------------------------------------------------------------
+			// Add new caption line
+			iLinkCaptionPrefs->AddNewCaptionLine("", pMString_infoDescription, "");
+		}
+		else
+		{
+			// Edit caption lines
+			this->EditCaptionLines("", int32_index, ""); // Remove
+		}
 
 		result = kSuccess;
 
@@ -419,7 +454,7 @@ void KESCPCaptionLinesScriptProvider::EditCaptionLines(PMString targetString, in
 		// Clear all caption lines
 		iLinkCaptionPrefs->ClearAllCaptionLines();
 
-		for (int32 i = 0; i < int32_NumCaptionLines; i++)
+		for (int i = 0; i < vector_beforeString.size(); i++)
 		{
 			iLinkCaptionPrefs->AddNewCaptionLine(vector_beforeString[i], vector_linkInfoProviderName[i], vector_afterString[i]);
 		}
