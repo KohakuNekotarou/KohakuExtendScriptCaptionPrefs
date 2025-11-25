@@ -6,12 +6,6 @@
 We cannot be held responsible for any issues arising from your use of this service.<br>
 Please use it at your own risk.<br>
 
-On Mac, you cannot use downloaded plug-ins directly.<br>
-https://helpx.adobe.com/jp/indesign/kb/indesign-and-macos-catalina.html<br>
-Refer to the above and use Terminal to<br>
-sudo xattr -r -d com.apple.quarantine /Applications/Adobe\ Indesign\ 2025/Plug-ins/KohakuExtendScriptCaptionPrefs.InDesignPlugin<br>
-Please execute.
-
 note:<br>
 When using ScriptListData on Windows<br>
 https://community.adobe.com/t5/indesign-discussions/cs5-unable-to-find-local-new-delete-g/m-p/2713086<br>
